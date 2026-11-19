@@ -1,0 +1,1678 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calendrier de l'Avent</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"%3E%3Cg stroke="#c8925a" stroke-width="3.4" stroke-linecap="round" fill="none"%3E%3Cpath d="M21 21 C19 15 19 11 16 6 M19.6 14 L13 11.5"/%3E%3Cpath d="M43 21 C45 15 45 11 48 6 M44.4 14 L51 11.5"/%3E%3C/g%3E%3Cpath d="M11 31 L10 14 L26 21.5 Z M53 31 L54 14 L38 21.5 Z" fill="#e8904a"/%3E%3Cpath d="M14 27 L13.5 18.5 L22.5 22.5 Z M50 27 L50.5 18.5 L41.5 22.5 Z" fill="#f6c3c9"/%3E%3Cellipse cx="32" cy="37" rx="22" ry="18.5" fill="#f2a25a"/%3E%3Cpath d="M32 21 v4.5 M27.5 21.6 l1.2 4 M36.5 21.6 l-1.2 4" stroke="#d47a36" stroke-width="2" stroke-linecap="round"/%3E%3Cellipse cx="32" cy="44.5" rx="10.5" ry="7.5" fill="#fff3e3"/%3E%3Cpath d="M21.5 36.5 Q25 32.5 28.5 36.5 M35.5 36.5 Q39 32.5 42.5 36.5" stroke="#3a2016" stroke-width="2.2" fill="none" stroke-linecap="round"/%3E%3Cellipse cx="18.5" cy="43" rx="3.6" ry="2.2" fill="#f19aa6" opacity=".8"/%3E%3Cellipse cx="45.5" cy="43" rx="3.6" ry="2.2" fill="#f19aa6" opacity=".8"/%3E%3Ccircle cx="32" cy="41.5" r="3.6" fill="#c92f4c"/%3E%3Cpath d="M32 45 Q29.5 48.5 27 46 M32 45 Q34.5 48.5 37 46" stroke="#3a2016" stroke-width="1.4" fill="none" stroke-linecap="round"/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="icone.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bordeaux:#5c1225;
+    --bordeaux2:#8a2440;
+    --vin:#2e0812;
+    --rose:#f1c6cf;
+    --rose2:#e3a1b0;
+    --poudre:#c97d8e;
+    --or:#e2bd7c;
+    --or-clair:#f8e3bd;
+    --creme:#fcf3ea;
+    --beige:#ead6bf;
+    --rouge:#8a2440;
+    --texte:#fcf3ea;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--vin)}
+  html,body{min-height:100vh}
+  h1 em{white-space:nowrap;display:inline-block}
+  body{
+    font-family:"DM Sans",system-ui,sans-serif;
+    color:var(--texte);
+    background:
+      radial-gradient(1100px 650px at 50% -8%, rgba(227,161,176,.35) 0%, transparent 60%),
+      radial-gradient(800px 600px at 0% 100%, rgba(201,125,142,.22) 0%, transparent 60%),
+      radial-gradient(800px 600px at 100% 70%, rgba(138,36,64,.5) 0%, transparent 60%),
+      linear-gradient(180deg,var(--bordeaux) 0%, var(--vin) 100%);
+  }
+  body::before{ /* motif damassé discret */
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.07;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23f8e3bd' stroke-width='.8'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z'/%3E%3Cpath d='M30 22c3 3 3 5 0 8c-3-3-3-5 0-8zM30 38c3-3 3-5 0-8c-3 3-3 5 0 8zM22 30c3-3 5-3 8 0c-3 3-5 3-8 0zM38 30c-3-3-5-3-8 0c3 3 5 3 8 0z'/%3E%3C/g%3E%3C/svg%3E");
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+  #neige{position:fixed;inset:0;pointer-events:none;z-index:0}
+
+  .page{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:clamp(28px,6vw,64px) clamp(14px,4vw,40px) 60px}
+
+  header{text-align:center;margin-bottom:clamp(24px,5vw,48px)}
+  .couronne{width:clamp(42px,8vw,58px);height:auto;display:block;margin:0 auto 10px;filter:drop-shadow(0 2px 10px rgba(226,189,124,.45))}
+  .petit{
+    font-size:.78rem;letter-spacing:.32em;text-transform:uppercase;color:var(--rose);
+    display:inline-flex;align-items:center;gap:.8em;
+  }
+  .petit::before,.petit::after{content:"";width:28px;height:1px;background:linear-gradient(90deg,transparent,var(--or));}
+  .petit::after{transform:scaleX(-1)}
+  h1{
+    font-family:"Cormorant Garamond",serif;font-weight:600;
+    font-size:clamp(2.6rem,9vw,5.2rem);line-height:1;margin:.25em 0 .2em;
+    background:linear-gradient(180deg,#fff1dc,var(--or-clair) 35%,var(--or) 75%,#c18f4c);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 2px 14px rgba(226,189,124,.25));
+  }
+  h1 em{font-style:italic;font-weight:500;background:linear-gradient(180deg,#ffe6ec,var(--rose) 50%,var(--rose2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sous{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(1.1rem,3.5vw,1.45rem);color:var(--creme);opacity:.88}
+  .statut{
+    display:inline-block;margin-top:20px;padding:9px 20px;border-radius:999px;
+    border:1px solid rgba(241,198,207,.45);background:rgba(241,198,207,.12);
+    font-size:.9rem;color:#ffe9ee;backdrop-filter:blur(6px);
+  }
+
+  /* ---------- Grille ---------- */
+  .grille{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:clamp(10px,1.6vw,18px);
+    perspective:1400px;
+  }
+  @media (max-width:820px){ .grille{grid-template-columns:repeat(4,1fr)} }
+  @media (max-width:520px){ .grille{grid-template-columns:repeat(3,1fr)} }
+
+  .case{
+    position:relative;aspect-ratio:3/4;border-radius:var(--radius);
+    cursor:pointer;outline:none;
+    transform-style:preserve-3d;
+  }
+  .case:focus-visible{box-shadow:0 0 0 3px var(--or)}
+
+  /* La photo derrière la porte */
+  .dedans{
+    position:absolute;inset:0;border-radius:var(--radius);overflow:hidden;
+    background:#1f050c;
+    box-shadow:inset 0 0 0 1px rgba(226,189,124,.45), inset 0 10px 30px rgba(0,0,0,.6);
+  }
+  .dedans img{width:100%;height:100%;object-fit:cover;display:block;opacity:0;transition:opacity .6s .35s}
+  .case.ouverte .dedans img{opacity:1}
+  .dedans .jour-mini{
+    position:absolute;left:8px;bottom:6px;font-family:"Cormorant Garamond",serif;font-weight:700;
+    font-size:1.1rem;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.7);opacity:0;transition:opacity .4s .6s
+  }
+  .case.ouverte .dedans .jour-mini{opacity:1}
+
+  /* La porte */
+  .porte{
+    position:absolute;inset:0;border-radius:var(--radius);
+    transform-origin:left center;
+    transition:transform .9s cubic-bezier(.3,.9,.3,1), box-shadow .9s;
+    display:flex;align-items:center;justify-content:center;flex-direction:column;
+    overflow:hidden;
+    box-shadow:0 10px 26px rgba(30,4,10,.45), inset 0 0 0 1.5px rgba(226,189,124,.7);
+    backface-visibility:hidden;
+  }
+  .porte::before{ /* double cadre doré */
+    content:"";position:absolute;inset:7px;border-radius:calc(var(--radius) - 6px);
+    border:1px solid rgba(226,189,124,.65);
+    box-shadow:inset 0 0 0 3px transparent, inset 0 0 0 4px rgba(226,189,124,.22);
+  }
+  .porte::after{ /* reflet */
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(255,255,255,.14),transparent 40%,transparent 70%,rgba(0,0,0,.18));
+  }
+  .porte .num{
+    position:relative;z-index:1;
+    font-family:"Cormorant Garamond",serif;font-weight:600;
+    font-size:clamp(2rem,6vw,3.4rem);line-height:1;color:var(--or-clair);
+    text-shadow:0 2px 0 rgba(0,0,0,.2);
+  }
+  .porte .deco{position:relative;z-index:1;margin-top:6px;width:clamp(16px,3vw,22px);height:clamp(16px,3vw,22px);opacity:.85}
+  .porte .poignee{
+    position:absolute;right:12px;top:50%;width:6px;height:6px;border-radius:50%;
+    background:var(--or);box-shadow:0 0 6px rgba(231,194,122,.8);transform:translateY(-50%);z-index:1
+  }
+  .porte .cadenas{position:absolute;top:10px;right:10px;width:14px;height:14px;opacity:.55;z-index:1}
+
+  .c-bordeaux .porte{background:linear-gradient(160deg,#a33a55,#6b1630 70%,#55102a)}
+  .c-bordeaux .porte .num{color:var(--or-clair)}
+  .c-rose   .porte{background:linear-gradient(160deg,#fbe1e6,#eeb3c0)}
+  .c-rose   .porte .num{color:#7a1d38;text-shadow:0 1px 0 rgba(255,255,255,.5)}
+  .c-rose   .deco{color:#a33a55 !important}
+  .c-creme  .porte{background:linear-gradient(160deg,#fffaf3,#ecd8c0)}
+  .c-creme  .porte .num{color:#8a2440;text-shadow:0 1px 0 rgba(255,255,255,.6)}
+  .c-creme  .deco{color:#c97d8e !important}
+  .c-poudre .porte{background:linear-gradient(160deg,#d995a4,#b0627a)}
+  .c-poudre .porte .num{color:#fff4ee}
+  .c-poudre .deco{color:#fff4ee !important}
+  .c-noel   .porte{background:linear-gradient(150deg,#f6dca6,#d9a95e 45%,#b9853e)}
+  .c-noel   .porte .num{color:#6b1630;text-shadow:0 1px 0 rgba(255,240,210,.7)}
+  .c-noel   .deco{color:#8a2440 !important}
+  .c-noel   .porte::before{border-color:rgba(107,22,48,.45)}
+  .c-noel   .porte .poignee{background:#8a2440;box-shadow:none}
+  .porte .noeud{position:absolute;top:-2px;left:50%;transform:translateX(-50%);width:44%;z-index:1;opacity:.95}
+
+  .case.ouverte .porte{
+    opacity:0;transform:scale(1.06);pointer-events:none;
+    transition:opacity .9s ease, transform .9s ease;
+  }
+  .case.aujourdhui:not(.ouverte) .porte{animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{
+    0%,100%{box-shadow:0 10px 26px rgba(30,4,10,.45),inset 0 0 0 1.5px rgba(226,189,124,.7),0 0 0 0 rgba(241,198,207,0)}
+    50%{box-shadow:0 10px 26px rgba(30,4,10,.45),inset 0 0 0 1.5px rgba(226,189,124,.7),0 0 0 7px rgba(241,198,207,.4)}
+  }
+  .case.verrouillee .porte{filter:saturate(.75) brightness(.92)}
+  .case.secoue{animation:secoue .45s}
+  @keyframes secoue{
+    0%,100%{transform:translateX(0)}20%{transform:translateX(-6px) rotate(-1deg)}
+    40%{transform:translateX(6px) rotate(1deg)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}
+  }
+  @media (hover:hover){
+    .case:not(.ouverte):not(.verrouillee):hover .porte{transform:translateY(-5px)}
+  }
+
+  footer{text-align:center;margin-top:46px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.25rem;color:var(--rose)}
+
+  /* ---------- Message (case pas encore dispo) ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));z-index:30;
+    transform:translate(-50%,30px);opacity:0;pointer-events:none;
+    width:min(92vw,420px);
+    background:linear-gradient(160deg,#fffaf5,#fbe4e9);color:#4a1222;border-radius:18px;padding:16px 20px;
+    border:1px solid rgba(226,189,124,.8);
+    box-shadow:0 18px 50px rgba(30,4,10,.5);text-align:center;
+    transition:opacity .3s, transform .35s cubic-bezier(.3,1.3,.5,1);
+  }
+  .toast.visible{opacity:1;transform:translate(-50%,0)}
+  .toast b{display:block;font-family:"Cormorant Garamond",serif;font-size:1.35rem;color:var(--rouge);margin-bottom:2px}
+  .toast span{font-size:.92rem;opacity:.85}
+
+  /* ---------- Grande photo ---------- */
+  .visionneuse{
+    position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
+    padding:20px;background:rgba(40,6,16,.84);backdrop-filter:blur(10px);
+    opacity:0;pointer-events:none;transition:opacity .35s;
+  }
+  .visionneuse.visible{opacity:1;pointer-events:auto}
+  .carte{
+    position:relative;background:linear-gradient(170deg,#fffaf4,#f9e7ea);color:#4a1222;border-radius:20px;
+    border:1px solid rgba(226,189,124,.9);
+    padding:14px 14px 20px;width:auto;max-width:min(92vw,560px);min-width:min(80vw,260px);max-height:92vh;display:flex;flex-direction:column;
+    box-shadow:0 30px 80px rgba(0,0,0,.6);
+    transform:scale(.92) rotate(-1.5deg);transition:transform .45s cubic-bezier(.3,1.3,.5,1);
+  }
+  .visionneuse.visible .carte{transform:scale(1) rotate(-1deg)}
+  .carte img{width:auto;max-width:100%;max-height:66vh;border-radius:4px;display:block;margin:0 auto}
+  .carte .legende{text-align:center;padding:14px 8px 0}
+  .carte .legende small{display:block}
+  .carte .legende p{font-family:"Cormorant Garamond",serif;font-size:1.35rem;font-style:italic;margin-top:4px;line-height:1.3}
+  .fermer{
+    position:absolute;top:-14px;right:-14px;width:40px;height:40px;border-radius:50%;border:none;
+    background:var(--rouge);color:#fff;font-size:1.3rem;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.4);z-index:3
+  }
+  @media (max-width:520px){ .fermer{top:8px;right:8px} }
+  .statut:empty{display:none}
+
+  /* ---------- Grattage ---------- */
+  .photo-zone{position:relative;display:block;line-height:0;margin:0 auto;width:fit-content;max-width:100%}
+  .grattage{position:absolute;inset:0;width:100%;height:100%;border-radius:4px;touch-action:none;cursor:grab;transition:opacity .8s ease}
+  .grattage:active{cursor:grabbing}
+  .grattage.fini{opacity:0;pointer-events:none}
+  .astuce{font-family:"DM Sans",sans-serif;font-size:.85rem;color:#a3566a;margin-top:6px;animation:clignote 2.4s ease-in-out infinite}
+  .carte .legende p.apparait{animation:apparait .8s ease both}
+  @keyframes apparait{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* ---------- Lettres ---------- */
+  .lettre-fond{
+    position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;
+    background:radial-gradient(800px 500px at 50% 30%,rgba(227,161,176,.25),transparent 70%),rgba(40,6,16,.92);
+    backdrop-filter:blur(12px);opacity:0;pointer-events:none;transition:opacity .5s;
+  }
+  .lettre-fond.visible{opacity:1;pointer-events:auto}
+  .scene{display:flex;flex-direction:column;align-items:center;gap:22px}
+
+  /* ---------- Fête : toutes les cases sont découvertes ---------- */
+  .fete{position:fixed;inset:0;z-index:48;display:flex;padding:20px;overflow-y:auto;overscroll-behavior:contain;
+    background:radial-gradient(700px 500px at 50% 45%,rgba(241,198,207,.22),transparent 70%),rgba(40,6,16,.88);backdrop-filter:blur(10px);
+    opacity:0;pointer-events:none;transition:opacity .6s}
+  .fete.visible{opacity:1;pointer-events:auto}
+  .fete canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+  .fete-contenu{position:relative;z-index:1;margin:auto;width:min(92vw,440px);padding-top:clamp(96px,26vw,118px)}
+  .fete-carte{position:relative;text-align:center;padding:clamp(42px,10vw,50px) 24px 24px;border-radius:22px;
+    background:linear-gradient(170deg,#fffaf4,#f9e7ea);color:#4a1222;box-shadow:0 24px 60px rgba(0,0,0,.5), inset 0 0 0 1px rgba(226,189,124,.9);
+    opacity:0;transform:translateY(24px) scale(.94);transition:opacity .6s, transform .7s cubic-bezier(.3,1.3,.5,1)}
+  .fete.visible .fete-carte{opacity:1;transform:none}
+  .fete-chat{position:absolute;left:50%;top:0;width:clamp(130px,34vw,150px);transform:translate(-50%,-78%);line-height:0}
+  .fete-chat .bonhomme{width:100%;margin:0;animation:joie .9s ease-in-out infinite;filter:drop-shadow(0 8px 14px rgba(0,0,0,.25))}
+  @keyframes joie{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-10px) rotate(-3deg)}75%{transform:translateY(-10px) rotate(3deg)}}
+  .fete-carte small{display:block;font-family:"DM Sans",sans-serif;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:#a3566a}
+  .fete-carte h3{font-family:"Pinyon Script",cursive;font-weight:400;color:#8a2440;font-size:clamp(2rem,7.5vw,2.5rem);line-height:1.15;margin:8px 0 10px}
+  .fete-carte p{font-family:"Cormorant Garamond",serif;font-size:clamp(1.15rem,3.8vw,1.3rem);line-height:1.45}
+  .fete-carte .bouton-deco.pour-bouton{margin-top:24px}
+
+  /* Quand une fenêtre est ouverte, la page derrière ne bouge plus */
+  html.bloque, html.bloque body{overflow:hidden;overscroll-behavior:none}
+  .telecharger{display:block;margin:12px auto 0;background:none;border:none;cursor:pointer;color:#a3566a;
+    font-family:"DM Sans",sans-serif;font-size:.84rem;text-decoration:underline;text-underline-offset:3px;padding:6px 10px}
+  .telecharger:disabled{opacity:.5;cursor:default;text-decoration:none}
+  .telecharger[hidden]{display:none}
+  .papier .telecharger{margin-top:14px}
+  .papier.grande .telecharger{margin-bottom:6px}
+  .plus-tard{display:block;margin:14px auto 0;background:none;border:none;cursor:pointer;color:#a3566a;font-family:"DM Sans",sans-serif;font-size:.82rem;text-decoration:underline;text-underline-offset:3px}
+
+  /* ---------- Bonhomme de neige d'accueil ---------- */
+  .bonhomme-scene{display:none;flex-direction:column;align-items:center;gap:6px;max-width:92vw}
+  .bonhomme-scene.visible{display:flex;animation:apparait .6s ease both}
+  .bonhomme-scene.part{animation:part .5s ease forwards}
+  @keyframes part{to{opacity:0;transform:translateY(20px) scale(.96)}}
+  .bulle{
+    position:relative;max-width:min(86vw,340px);min-height:3.4em;padding:16px 22px;border-radius:22px;
+    background:linear-gradient(170deg,#fffaf5,#fbe4e9);color:#4a1222;text-align:center;
+    font-family:"Cormorant Garamond",serif;font-size:clamp(1.3rem,4.6vw,1.55rem);font-style:italic;line-height:1.3;
+    box-shadow:0 14px 34px rgba(0,0,0,.35), inset 0 0 0 1px rgba(226,189,124,.8);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .bulle::after{content:"";position:absolute;bottom:-11px;left:50%;width:22px;height:22px;transform:translateX(-50%) rotate(45deg);
+    background:#fbe4e9;box-shadow:inset -1px -1px 0 rgba(226,189,124,.8);border-radius:0 0 4px 0}
+  .bulle .curseur{display:inline-block;width:2px;height:1em;background:#8a2440;margin-left:3px;vertical-align:-2px;animation:clignote 1s steps(1) infinite}
+  .bonhomme{width:clamp(190px,52vw,250px);height:auto;margin-top:8px;overflow:visible;animation:sautille 2.8s ease-in-out infinite;filter:drop-shadow(0 10px 24px rgba(0,0,0,.3))}
+  .chat-accueil{line-height:0}
+  @keyframes sautille{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .bras-coucou{transform-origin:150px 194px;animation:coucou 1.1s ease-in-out infinite}
+  @keyframes coucou{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(22deg)}}
+  .yeux{transform-origin:110px 108px;animation:cligne 5s infinite}
+  @keyframes cligne{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+  .bois{transform-origin:110px 60px;animation:pompon 2.8s ease-in-out infinite}
+  @keyframes pompon{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+  .bonhomme-scene .bouton-deco{margin-top:14px!important;opacity:0;transform:translateY(8px);transition:opacity .5s, transform .5s;pointer-events:none}
+  .bonhomme-scene .bouton-deco.visible{opacity:1;transform:none;pointer-events:auto}
+  .queue{transform-origin:164px 244px;animation:queue 3s ease-in-out infinite}
+  @keyframes queue{0%,100%{transform:rotate(0)}50%{transform:rotate(1.6deg)}}
+  .nez{transform-origin:110px 128px;animation:nezBrille 2.4s ease-in-out infinite}
+  @keyframes nezBrille{0%,100%{filter:none}50%{filter:drop-shadow(0 0 5px #ee6f8a) brightness(1.15)}}
+  .coucou .patte-repos{display:none}
+  .repos .bras-coucou{display:none}
+
+  /* Le chat perché sur le calendrier */
+  .grille-cadre{position:relative;margin-top:clamp(86px,24vw,104px)}
+  .chat-perche{position:absolute;right:clamp(4px,2vw,22px);bottom:calc(100% - 20px);width:clamp(100px,25vw,132px);z-index:4;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
+  .chat-perche:focus-visible svg{filter:drop-shadow(0 0 0 3px var(--or))}
+  .chat-cal{width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35));transform-origin:50% 100%;animation:respire 3.4s ease-in-out infinite}
+  @keyframes respire{0%,100%{transform:scale(1)}50%{transform:scale(1.015,.985)}}
+  .chat-perche.saute .chat-cal{animation:saut .5s ease}
+  @keyframes saut{0%,100%{transform:translateY(0)}40%{transform:translateY(-12px)}}
+  .bulle-chat{
+    position:absolute;right:calc(100% - 8px);top:12%;width:max-content;max-width:min(58vw,250px);
+    padding:10px 15px;border-radius:16px;background:linear-gradient(170deg,#fffaf5,#fbe4e9);color:#4a1222;
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-size:clamp(1.02rem,3.6vw,1.15rem);line-height:1.25;
+    box-shadow:0 10px 26px rgba(0,0,0,.35), inset 0 0 0 1px rgba(226,189,124,.8);
+    opacity:0;transform:translateX(10px) scale(.94);transform-origin:right center;transition:opacity .3s, transform .35s cubic-bezier(.3,1.3,.5,1);pointer-events:none}
+  .bulle-chat.visible{opacity:1;transform:none}
+  .bulle-chat::after{content:"";position:absolute;right:-6px;top:50%;width:12px;height:12px;margin-top:-6px;transform:rotate(45deg);
+    background:#fcecef;box-shadow:inset -1px 1px 0 rgba(226,189,124,.8)}
+  @media (prefers-reduced-motion:reduce){.bonhomme,.bonhomme *,.chat-cal,.chat-cal *{animation:none!important}}
+  .enveloppe{
+    position:relative;width:min(84vw,400px);aspect-ratio:1.55;cursor:pointer;perspective:900px;
+    filter:drop-shadow(0 24px 40px rgba(0,0,0,.45));
+    animation:flotte 3.2s ease-in-out infinite;
+  }
+  @keyframes flotte{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+  .env-dos{position:absolute;inset:0;border-radius:10px;background:linear-gradient(160deg,#f6dfe3,#e7b9c3)}
+  .env-papier{
+    position:absolute;left:7%;right:7%;top:8%;bottom:8%;border-radius:6px;
+    background:linear-gradient(180deg,#fffaf3,#f5e8d6);transition:transform .8s .45s cubic-bezier(.3,.9,.3,1);z-index:1;
+    display:flex;align-items:flex-start;justify-content:center;padding-top:10%;
+    font-family:"Pinyon Script",cursive;color:#8a2440;font-size:clamp(1.4rem,5vw,1.9rem);
+  }
+  .env-avant{
+    position:absolute;inset:0;border-radius:10px;z-index:2;pointer-events:none;
+    clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);
+    background:linear-gradient(170deg,#f4d3da,#e4aebb);
+  }
+  .enveloppe::after{content:"";position:absolute;inset:0;border-radius:10px;z-index:5;pointer-events:none;
+    box-shadow:inset 0 0 0 1.5px rgba(226,189,124,.85)}
+  .env-rabat{
+    position:absolute;left:0;right:0;top:0;height:58%;z-index:3;transform-origin:top;
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    background:linear-gradient(180deg,#f9e3e8,#e9b7c2);
+    transition:transform .6s cubic-bezier(.4,.1,.3,1), z-index 0s .3s;
+  }
+  .sceau{
+    position:absolute;left:50%;top:58%;z-index:4;width:62px;height:62px;transform:translate(-50%,-50%);
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 35% 30%,#b8405c,#7a1a33 60%,#5a1022);
+    box-shadow:0 3px 8px rgba(0,0,0,.35), inset 0 0 0 4px rgba(0,0,0,.12), inset 0 0 0 6px rgba(255,255,255,.08);
+    transition:transform .4s, opacity .4s;
+  }
+  .sceau svg{width:28px;height:28px;opacity:.9}
+  .enveloppe.ouverte{animation:none}
+  .enveloppe.ouverte + .indice{visibility:hidden}
+  .enveloppe.ouverte .sceau{opacity:0;transform:translate(-50%,-50%) scale(1.4)}
+  .enveloppe.ouverte .env-rabat{transform:rotateX(180deg);z-index:0}
+  .enveloppe.ouverte .env-papier{transform:translateY(-55%)}
+  .indice{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.2rem;color:var(--rose);opacity:.9;
+    animation:clignote 2.4s ease-in-out infinite}
+  @keyframes clignote{0%,100%{opacity:.5}50%{opacity:1}}
+
+  .papier{
+    position:relative;width:min(92vw,560px);max-height:86vh;overflow:auto;
+    background:
+      radial-gradient(circle at 20% 10%,rgba(241,198,207,.25),transparent 40%),
+      linear-gradient(180deg,#fffaf3,#f6eadb);
+    color:#4a1222;border-radius:6px;padding:clamp(28px,6vw,48px) clamp(24px,6vw,48px);
+    box-shadow:0 30px 80px rgba(0,0,0,.55), inset 0 0 0 1px rgba(226,189,124,.6), inset 0 0 0 7px #fffaf3, inset 0 0 0 8px rgba(226,189,124,.35);
+    opacity:0;transform:translateY(30px) scale(.97);transition:opacity .6s, transform .6s cubic-bezier(.3,1.2,.5,1);
+    display:none;
+  }
+  .papier.visible{display:block}
+  .papier.montre{opacity:1;transform:none}
+  .papier h2{font-family:"Pinyon Script",cursive;font-weight:400;color:#8a2440;font-size:clamp(2rem,7vw,2.8rem);line-height:1.1;margin-bottom:14px}
+  .papier .corps{font-family:"Cormorant Garamond",serif;font-size:clamp(1.15rem,3.6vw,1.3rem);line-height:1.6;white-space:pre-line}
+  .papier .signature{font-family:"Pinyon Script",cursive;font-size:clamp(1.7rem,6vw,2.2rem);color:#8a2440;text-align:right;margin-top:16px}
+  .bouton{
+    display:block;margin:26px auto 0;border:none;cursor:pointer;border-radius:999px;padding:13px 28px;
+    font-family:"DM Sans",sans-serif;font-size:.95rem;font-weight:500;letter-spacing:.02em;color:#fffaf3;
+    background:linear-gradient(160deg,#a33a55,#6b1630);box-shadow:0 8px 20px rgba(107,22,48,.35), inset 0 0 0 1px rgba(226,189,124,.6);
+  }
+
+  /* Grande lettre (finale) */
+  .papier .ornement,.papier .fermer-lettre,.papier .defile{display:none}
+  .papier.grande{width:min(94vw,680px);max-height:90vh;padding-top:clamp(30px,6vw,52px);padding-bottom:0;scroll-behavior:smooth}
+  .papier.grande .ornement{display:block;text-align:center;margin-bottom:18px}
+  .papier.grande .ornement svg{width:150px;height:auto;display:block;margin:0 auto 6px}
+  .date-lettre{font-family:"DM Sans",sans-serif;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#a3566a}
+  .papier.grande h2{font-size:clamp(2.4rem,8vw,3.2rem)}
+  .papier.grande .corps{font-size:clamp(1.2rem,3.8vw,1.38rem);line-height:1.75;text-align:left;hyphens:auto}
+  .papier.grande .corps::first-letter{
+    font-family:"Cormorant Garamond",serif;font-weight:600;float:left;font-size:4.2em;line-height:.8;
+    padding:.08em .1em 0 0;color:#8a2440}
+  .papier.grande .signature{font-size:clamp(2rem,7vw,2.6rem);margin-top:28px}
+  .papier.grande .bouton{margin-bottom:clamp(30px,6vw,48px)}
+  .papier.grande .fermer-lettre{
+    display:flex;align-items:center;justify-content:center;position:sticky;top:0;float:right;margin:-18px -18px 0 0;
+    width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;z-index:2;
+    background:rgba(138,36,64,.9);color:#fff;font-size:1.2rem;box-shadow:0 4px 12px rgba(0,0,0,.25)}
+  .papier.grande .defile{
+    display:block;position:sticky;bottom:0;margin:0 calc(-1 * clamp(24px,6vw,48px));padding:34px 0 14px;text-align:center;
+    font-family:"DM Sans",sans-serif;font-size:.82rem;color:#a3566a;pointer-events:none;
+    background:linear-gradient(to bottom,rgba(246,234,219,0),#f6eadb 55%);transition:opacity .4s}
+  .papier.grande .defile.cache{opacity:0}
+
+  /* Bouton dernière surprise */
+  .finale{display:none;margin:34px auto 0;text-align:center}
+  .finale.visible{display:block}
+  .finale button{
+    border:none;cursor:pointer;border-radius:999px;padding:15px 30px;
+    font-family:"Cormorant Garamond",serif;font-size:1.3rem;font-style:italic;color:#6b1630;
+    background:linear-gradient(150deg,#f6dca6,#d9a95e 50%,#c18f4c);
+    box-shadow:0 10px 30px rgba(226,189,124,.35), inset 0 0 0 1px rgba(255,250,240,.6);
+    animation:pulseOr 2.4s ease-in-out infinite;
+  }
+  .finale button.attente{
+    animation:none;color:var(--or-clair);font-size:1.15rem;
+    background:rgba(226,189,124,.08);box-shadow:inset 0 0 0 1px rgba(226,189,124,.55);
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .finale button.attente svg{width:16px;height:16px;flex:none;opacity:.8}
+  .finale .sous-finale{display:block;margin-top:8px;font-family:"DM Sans",sans-serif;font-size:.8rem;color:var(--rose);opacity:.75}
+  .finale.secoue{animation:secoue .45s}
+  .finale.attire .bouton-deco{animation:attire 1.4s ease-in-out infinite}
+  @keyframes attire{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+  /* ---------- Décor de Noël autour de la surprise ---------- */
+  .noel{position:relative;display:inline-flex;flex-direction:column;align-items:center}
+  .scene-noel{display:flex;align-items:flex-end;justify-content:center;gap:4px;margin-bottom:-6px;position:relative;z-index:1}
+  .sapin{width:clamp(96px,22vw,124px);height:auto;overflow:visible;filter:drop-shadow(0 6px 14px rgba(0,0,0,.35))}
+  .cadeau{width:clamp(34px,8vw,44px);height:auto;filter:drop-shadow(0 4px 8px rgba(0,0,0,.3))}
+  .cadeau.petit{width:clamp(26px,6vw,34px)}
+  .sapin .etoile-sapin{transform-origin:60px 14px;animation:etoileBrille 2.6s ease-in-out infinite}
+  @keyframes etoileBrille{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.15) rotate(8deg)}}
+  .sapin .halo{animation:halo 2.6s ease-in-out infinite}
+  @keyframes halo{0%,100%{opacity:.35}50%{opacity:.8}}
+  .sapin .boule-brille{animation:scintille 1.8s ease-in-out infinite}
+  .sapin .boule-brille:nth-of-type(2n){animation-delay:.6s}
+  .sapin .boule-brille:nth-of-type(3n){animation-delay:1.2s}
+  @keyframes scintille{0%,100%{opacity:1}50%{opacity:.45}}
+  .paillette{position:absolute;width:10px;height:10px;color:var(--or-clair);animation:scintille 2.2s ease-in-out infinite;pointer-events:none}
+  .paillette svg{width:100%;height:100%;display:block}
+
+  .bouton-deco{position:relative;padding:0 6px}
+  .bouton-deco.pour-bouton{display:table;margin:30px auto 0}
+  .bouton-deco .bouton{margin:0;padding:15px 40px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.25rem;font-weight:500;letter-spacing:0}
+  .guirlande{position:absolute;left:14px;width:calc(100% - 28px);top:-9px;height:22px;pointer-events:none;z-index:2;overflow:visible}
+  .guirlande .ampoule{animation:ampoule 1.6s ease-in-out infinite}
+  .guirlande .ampoule:nth-child(odd){animation-delay:.8s}
+  @keyframes ampoule{0%,100%{opacity:1;filter:drop-shadow(0 0 3px currentColor)}50%{opacity:.35;filter:none}}
+  .ampoules{position:absolute;left:14px;right:14px;top:-9px;height:22px;pointer-events:none;z-index:3}
+  .ampoules span{
+    position:absolute;width:7px;height:10px;margin-left:-3.5px;border-radius:50% 50% 50% 50% / 40% 40% 60% 60%;
+    background:currentColor;box-shadow:0 0 8px 2px currentColor;animation:lumiere 1.6s ease-in-out infinite}
+  .ampoules span::before{content:"";position:absolute;left:1.5px;top:-3px;width:4px;height:4px;border-radius:1px;background:#c99a5a}
+  .ampoules span:nth-child(odd){animation-delay:.8s}
+  .ampoules span:nth-child(3n){animation-duration:2.2s}
+  @keyframes lumiere{0%,100%{opacity:1;box-shadow:0 0 9px 2px currentColor}50%{opacity:.4;box-shadow:0 0 0 0 currentColor}}
+  @media (prefers-reduced-motion:reduce){.ampoules span{animation:none}}
+  .houx{position:absolute;top:50%;width:34px;height:34px;transform:translateY(-50%);z-index:2;pointer-events:none}
+  .houx.g{left:-14px;transform:translateY(-50%) rotate(-20deg)}
+  .houx.d{right:-14px;transform:translateY(-50%) scaleX(-1) rotate(-20deg)}
+  .finale button{position:relative;padding-left:34px!important;padding-right:34px!important}
+  .finale button.attente{background:linear-gradient(160deg,rgba(138,36,64,.55),rgba(60,10,24,.65));box-shadow:inset 0 0 0 1px rgba(226,189,124,.65),0 10px 26px rgba(0,0,0,.3)}
+  @media (prefers-reduced-motion:reduce){
+    .sapin *,.guirlande .ampoule,.paillette{animation:none!important}
+  }
+
+  @keyframes pulseOr{0%,100%{box-shadow:0 10px 30px rgba(226,189,124,.3),0 0 0 0 rgba(226,189,124,0)}50%{box-shadow:0 10px 30px rgba(226,189,124,.3),0 0 0 8px rgba(226,189,124,.25)}}
+
+  .liens-bas{display:inline-flex;align-items:center;gap:10px;margin-top:6px}
+  .liens-bas .sep{color:var(--or);opacity:.6;font-style:normal}
+  .relire{background:none;border:none;color:var(--rose);font:inherit;cursor:pointer;opacity:.75;margin-top:6px;font-family:"DM Sans",sans-serif;font-size:.85rem;font-style:normal;text-decoration:underline;text-underline-offset:3px}
+
+  /* Musique */
+  .musique{
+    position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:25;
+    width:48px;height:48px;border-radius:50%;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;
+    background:rgba(252,243,234,.14);backdrop-filter:blur(8px);color:var(--or-clair);
+    box-shadow:inset 0 0 0 1px rgba(226,189,124,.55);
+  }
+  .musique.dispo{display:flex}
+  .musique svg{width:22px;height:22px}
+  .musique .barres{display:none}
+  .musique.joue .note{display:none}
+  .musique.joue .barres{display:block}
+  .barres rect{animation:barre 1s ease-in-out infinite;transform-origin:bottom;transform-box:fill-box}
+  .barres rect:nth-child(2){animation-delay:.2s}.barres rect:nth-child(3){animation-delay:.4s}
+  @keyframes barre{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+
+  /* Polaroid : date manuscrite */
+  .carte .legende .date-main{font-family:"Pinyon Script",cursive;font-size:2rem;color:var(--rouge);line-height:1.1;letter-spacing:0;text-transform:none}
+
+  /* Éclats quand une case s'ouvre */
+  .eclat{position:fixed;z-index:20;pointer-events:none;left:0;top:0;will-change:transform,opacity;
+    animation:eclat 1.1s cubic-bezier(.2,.7,.3,1) forwards}
+  @keyframes eclat{
+    0%{transform:translate(var(--x0),var(--y0)) scale(.3) rotate(0);opacity:1}
+    70%{opacity:1}
+    100%{transform:translate(var(--x1),var(--y1)) scale(1) rotate(var(--r));opacity:0}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .porte,.toast,.carte,.visionneuse{transition:none}
+    .case.aujourdhui:not(.ouverte) .porte,.case.secoue{animation:none}
+  }
+</style>
+</head>
+<body>
+<canvas id="neige"></canvas>
+
+<div class="page">
+  <header>
+    <svg class="couronne" viewBox="0 0 64 44" aria-hidden="true">
+      <defs><linearGradient id="gOr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1d6"/><stop offset=".5" stop-color="#e2bd7c"/><stop offset="1" stop-color="#b9853e"/></linearGradient></defs>
+      <path d="M6 34 L3 10 L18 22 L32 4 L46 22 L61 10 L58 34 Z" fill="url(#gOr)"/>
+      <rect x="6" y="36" width="52" height="6" rx="2" fill="url(#gOr)"/>
+      <circle cx="3" cy="10" r="3" fill="#f1c6cf"/><circle cx="32" cy="4" r="3.5" fill="#f1c6cf"/><circle cx="61" cy="10" r="3" fill="#f1c6cf"/>
+      <circle cx="32" cy="27" r="3.2" fill="#8a2440"/><circle cx="19" cy="29" r="2.2" fill="#e3a1b0"/><circle cx="45" cy="29" r="2.2" fill="#e3a1b0"/>
+    </svg>
+    <h1>Calendrier <em>de l'Avent</em></h1>
+    <p class="sous">24 jours, 24 petits bouts de moi, rien que pour toi ♡</p>
+    <div class="statut" id="statut"></div>
+  </header>
+
+  <div class="grille-cadre">
+    <div class="chat-perche" id="chatPerche" role="button" tabindex="0" aria-label="Le chat de Noël">
+      <div class="bulle-chat" id="bulleChat" aria-live="polite"></div>
+      <div id="chatCal"></div>
+    </div>
+    <main class="grille" id="grille" aria-label="Les 24 cases du calendrier"></main>
+  </div>
+
+  <div class="finale" id="finale">
+    <div class="noel">
+      <div class="bouton-deco">
+        <svg class="guirlande" viewBox="0 0 300 22" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 4 Q37.5 18 75 4 Q112.5 18 150 4 Q187.5 18 225 4 Q262.5 18 300 4" fill="none" stroke="#e2bd7c" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <svg class="houx g" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M20 22 C12 10 4 14 2 8 C8 10 10 4 14 6 C14 12 20 12 20 22Z" fill="#e2bd7c"/>
+          <path d="M20 22 C28 10 36 14 38 8 C32 10 30 4 26 6 C26 12 20 12 20 22Z" fill="#c99a5a"/>
+          <circle cx="17" cy="24" r="4" fill="#8a2440"/><circle cx="24" cy="25" r="4" fill="#a33a55"/><circle cx="20" cy="30" r="4" fill="#6b1630"/>
+          <circle cx="16" cy="22.6" r="1.1" fill="#fff" opacity=".7"/><circle cx="23" cy="23.6" r="1.1" fill="#fff" opacity=".7"/>
+        </svg>
+        <svg class="houx d" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M20 22 C12 10 4 14 2 8 C8 10 10 4 14 6 C14 12 20 12 20 22Z" fill="#e2bd7c"/>
+          <path d="M20 22 C28 10 36 14 38 8 C32 10 30 4 26 6 C26 12 20 12 20 22Z" fill="#c99a5a"/>
+          <circle cx="17" cy="24" r="4" fill="#8a2440"/><circle cx="24" cy="25" r="4" fill="#a33a55"/><circle cx="20" cy="30" r="4" fill="#6b1630"/>
+          <circle cx="16" cy="22.6" r="1.1" fill="#fff" opacity=".7"/><circle cx="23" cy="23.6" r="1.1" fill="#fff" opacity=".7"/>
+        </svg>
+        <div class="ampoules" id="ampoules" aria-hidden="true"></div>
+        <button id="boutonFinale">Une dernière surprise pour toi ♡</button>
+      </div>
+      <span class="sous-finale" id="sousFinale"></span>
+    </div>
+  </div>
+
+  <footer>Je t'aime ♡<br><span class="liens-bas"><button class="relire" id="revoir">Revoir le début</button></span></footer>
+</div>
+
+<!-- Lettres -->
+<div class="lettre-fond" id="lettreFond" aria-hidden="true">
+  <div class="bonhomme-scene" id="bonhommeScene">
+    <div class="bulle" id="bulle" aria-live="polite"></div>
+    <div id="chatAccueil" class="chat-accueil"></div>
+    <button class="bouton" id="boutonBonhomme"></button>
+  </div>
+  <div class="scene" id="scene">
+    <div class="enveloppe" id="enveloppe" role="button" tabindex="0" aria-label="Ouvrir l'enveloppe">
+      <div class="env-dos"></div>
+      <div class="env-papier">Pour toi</div>
+      <div class="env-avant"></div>
+      <div class="env-rabat"></div>
+      <div class="sceau"><svg viewBox="0 0 24 24" fill="#f1c6cf"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.2 0 3.6 1.3 5.4 3.3 1.8-2 3.2-3.3 5.4-3.3 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></div>
+    </div>
+    <div class="indice">Touche le sceau ♡</div>
+  </div>
+  <div class="papier" id="papier" role="dialog" aria-modal="true">
+    <button class="fermer-lettre" id="fermerLettre" aria-label="Fermer">×</button>
+    <div class="ornement" aria-hidden="true">
+      <svg viewBox="0 0 160 24"><path d="M0 12h58M102 12h58" stroke="#c99a5a" stroke-width="1"/><path d="M80 3c4 5 4 13 0 18c-4-5-4-13 0-18zM66 12c5-4 10-4 14 0c-4 4-9 4-14 0zM94 12c-5-4-10-4-14 0c4 4 9 4 14 0z" fill="#c97d8e"/><circle cx="62" cy="12" r="2" fill="#e2bd7c"/><circle cx="98" cy="12" r="2" fill="#e2bd7c"/></svg>
+      <span class="date-lettre">24 décembre</span>
+    </div>
+    <h2 id="lettreTitre"></h2>
+    <div class="corps" id="lettreCorps"></div>
+    <div class="signature" id="lettreSignature"></div>
+    <button class="bouton" id="lettreBouton"></button>
+    <button class="telecharger" id="telechargerLettre">⤓ Télécharger la lettre</button>
+    <div class="defile" id="defile" aria-hidden="true">Fais défiler ↓</div>
+  </div>
+</div>
+
+<audio id="audio" src="musique.mp3" loop preload="metadata"></audio>
+<button class="musique" id="musique" aria-label="Musique">
+  <svg class="note" viewBox="0 0 24 24" fill="currentColor"><path d="M9 18.5a3 3 0 1 1-2-2.83V5l12-2v12.5a3 3 0 1 1-2-2.83V6.3L9 7.7z"/></svg>
+  <svg class="barres" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="6" width="3.5" height="14" rx="1.5"/><rect x="10.25" y="3" width="3.5" height="17" rx="1.5"/><rect x="16.5" y="8" width="3.5" height="12" rx="1.5"/></svg>
+</button>
+
+<div class="fete" id="fete" aria-hidden="true">
+  <canvas id="confettis"></canvas>
+  <div class="fete-contenu">
+    <div class="fete-carte" id="feteCarte" role="dialog" aria-modal="true">
+      <div class="fete-chat" id="chatFete"></div>
+      <small>24 cases sur 24</small>
+      <h3>Bravo, tu as tout découvert&nbsp;!</h3>
+      <p>Mais ce n'est pas fini…<br>Il reste une dernière surprise, la plus spéciale de toutes ♡</p>
+      <button class="bouton" id="ouvrirSurprise">Ouvrir ma surprise ♡</button>
+      <button class="plus-tard" id="plusTard">Plus tard</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="visionneuse" id="visionneuse" aria-hidden="true">
+  <div class="carte" role="dialog" aria-modal="true" aria-label="Photo du jour">
+    <button class="fermer" id="fermer" aria-label="Fermer">×</button>
+    <div class="photo-zone" id="photoZone"><img id="grandePhoto" alt=""></div>
+    <div class="legende">
+      <small id="grandJour" class="date-main"></small>
+      <div class="astuce" id="astuce"></div>
+      <p id="grandMessage"></p>
+      <button class="telecharger" id="telechargerPhoto" hidden>⤓ Télécharger la photo</button>
+    </div>
+  </div>
+</div>
+
+<script src="lettre-finale.js"></script>
+<script>
+/* =========================================================
+   À PERSONNALISER
+   - Les photos : dans le dossier "photos", nommées 01, 02 … 24
+     (en .jpg, .jpeg, .png ou .webp)
+   - La musique : un fichier "musique.mp3" à côté de ce fichier
+   - Un petit mot (facultatif) par jour ci-dessous
+   - Les deux lettres un peu plus bas
+   ========================================================= */
+const MESSAGES = {
+  1: "Le premier jour… le début de la plus douce des attentes.",
+  24: "Joyeux Noël, mon amour ♡",
+  // 2: "…", 3: "…", etc.
+};
+
+/* Lettre d'accueil (s'affiche à sa première visite) */
+/* Ce que dit le chat sur la page du calendrier quand on le touche */
+/* Synchronisation de l'avancement entre ses appareils (téléphone, PC…)
+   Laisser base vide ("") pour désactiver. */
+const SYNCHRO = {
+  base: "https://calendrier-avent-14de5-default-rtdb.europe-west1.firebasedatabase.app",
+  cle:  "avent-91ke87fbr149ozymtrmk"
+};
+
+const CHAT_PHRASES = [
+  "Ronron… ♡",
+  "Je surveille le calendrier : pas de triche !",
+  "Tu sais qu'elle t'aime très fort ?",
+  "Miaou !",
+  "Une caresse ? ♡",
+  "Mon nez brille pour te guider jusqu'à Noël !"
+];
+
+/* Ce que dit Caramel, le chat de Noël, bulle par bulle (avant la lettre d'accueil) */
+const BONHOMME = {
+  bulles: [
+    "Miaou ! Coucou toi ♡",
+    "Moi, c'est Caramel, le renne… euh, le chat de Noël !",
+    "Bienvenue !",
+    "Quelqu'un a préparé une surprise rien que pour toi…",
+    "Suis-moi, je te montre !"
+  ],
+  bouton: "Voir la surprise"
+};
+
+const LETTRE_ACCUEIL = {
+  titre: "Mon amour,",
+  texte: `Cette année, j'ai voulu que chaque matin de décembre commence par un petit morceau de moi.
+
+Derrière chacune de ces 24 cases se cache une photo. Une par jour, pas une de plus — pas de triche ♡
+
+J'espère qu'elles te feront sourire jusqu'à Noël.`,
+  signature: "Je t'aime",
+  bouton: "Découvrir mon calendrier"
+};
+
+/* Lettre finale : elle est dans le fichier lettre-finale.js */
+const LETTRE_FINALE = Object.assign({
+  titre: "Mon amour,", texte: "", signature: "Je t'aime", bouton: "Joyeux Noël ♡"
+}, window.LETTRE_FINALE || {});
+
+/* Ordre des cases (mélangé, comme un vrai calendrier) */
+const ORDRE = [13,4,21,8,17,1,10,23,6,15,2,19,9,24,12,3,18,7,22,14,5,20,11,16];
+const COULEURS = ["c-bordeaux","c-rose","c-creme","c-poudre"];
+const MOIS = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+
+/* ---------- Date ---------- */
+/* Modes de test (à ajouter à la fin de l'adresse) :
+   #apercu   → tout est débloqué
+   #depart   → comme sa toute première visite (on oublie tout à chaque chargement)
+   #veille   → comme le 30 novembre au soir
+   #jour-5   → comme le 5 décembre (marche de #jour-1 à #jour-25)
+   #fete     → voir l'animation quand les 24 cases sont découvertes
+   #reinitialiser → remet TOUT à zéro (cet appareil + la synchro en ligne) — à faire avant de lui offrir   */
+const vraiMaintenant = new Date();
+const anneeAvent = vraiMaintenant.getMonth() === 0 ? vraiMaintenant.getFullYear() - 1 : vraiMaintenant.getFullYear();
+const apercu = location.hash === "#apercu";
+const depart = location.hash === "#depart";
+const testFete = location.hash === "#fete";
+const simJour = (location.hash.match(/^#jour-(\d{1,2})$/) || [])[1];
+const simulation = !!simJour || location.hash === "#veille";
+const maintenant = simJour ? new Date(anneeAvent, 11, Math.min(25, Math.max(1, +simJour)), 10)
+                 : location.hash === "#veille" ? new Date(anneeAvent, 10, 30, 20)
+                 : vraiMaintenant;
+addEventListener("hashchange", () => location.reload());   // changer le # recharge la page
+if (depart){ try { Object.keys(localStorage).filter(k => k.startsWith("avent-")).forEach(k => localStorage.removeItem(k)); } catch(e){} }
+const annee = anneeAvent;
+
+function dejaArrive(jour){
+  if (apercu) return true;
+  const d = new Date(annee, 11, jour); // 11 = décembre, minuit heure locale
+  return maintenant >= d;
+}
+function joursRestants(jour){
+  const auj = new Date(maintenant.getFullYear(), maintenant.getMonth(), maintenant.getDate());
+  const cible = new Date(annee, 11, jour);
+  return Math.round((cible - auj) / 86400000);
+}
+const estDecembre = maintenant.getMonth() === 11;
+const jourActuel = estDecembre ? maintenant.getDate() : null;
+
+/* ---------- Mémoire des cases ouvertes ---------- */
+const CLE = "avent-ouvertes-" + annee;
+let ouvertes = new Set();
+if (!simulation) { try { ouvertes = new Set(JSON.parse(localStorage.getItem(CLE) || "[]")); } catch(e){} }
+function sauver(){ if (apercu || simulation) return; try { localStorage.setItem(CLE, JSON.stringify([...ouvertes])); } catch(e){} envoyerSynchro(); }
+
+/* ---------- Photo de remplacement (si la vraie manque) ---------- */
+function photoProvisoire(j){
+  const teintes = [[120,28,56],[176,98,122],[150,60,80],[185,133,62]];
+  const [r,g,b] = teintes[j % 4];
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='900' height='1200' viewBox='0 0 300 400'>
+    <defs><radialGradient id='g' cx='50%' cy='40%' r='70%'>
+      <stop offset='0' stop-color='rgb(${r+60},${g+60},${b+60})'/><stop offset='1' stop-color='rgb(${r},${g},${b})'/></radialGradient></defs>
+    <rect width='300' height='400' fill='url(#g)'/>
+    <text x='150' y='215' font-family='Georgia,serif' font-size='120' fill='rgba(255,255,255,.25)' text-anchor='middle'>♡</text>
+    <text x='150' y='330' font-family='Georgia,serif' font-style='italic' font-size='26' fill='rgba(255,255,255,.75)' text-anchor='middle'>photo ${j}</text>
+  </svg>`;
+  return "data:image/svg+xml," + encodeURIComponent(svg);
+}
+const EXTENSIONS = ["jpg","jpeg","png","webp","JPG","JPEG","PNG"];
+function cheminPhoto(j, k = 0){ return "photos/" + String(j).padStart(2,"0") + "." + EXTENSIONS[k]; }
+
+/* ---------- Statut en haut ---------- */
+const statut = document.getElementById("statut");
+if (apercu) statut.textContent = "Mode aperçu : toutes les cases sont ouvertes";
+else if (estDecembre && jourActuel <= 24){
+  const d = maintenant.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long" });
+  statut.textContent = `${d.charAt(0).toUpperCase() + d.slice(1)} — Jour ${jourActuel}` + (jourActuel === 24 ? " ✨" : "");
+}
+else if (estDecembre || maintenant.getMonth() === 0) statut.textContent = "Joyeux Noël ✨";
+else if (joursRestants(1) === 1) statut.textContent = "Rendez-vous demain pour la première case ♡";
+
+/* ---------- Construction de la grille ---------- */
+const grille = document.getElementById("grille");
+const flocon = `<svg class="deco" viewBox="0 0 24 24" fill="currentColor" style="color:var(--or)"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.2 0 3.6 1.3 5.4 3.3 1.8-2 3.2-3.3 5.4-3.3 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg>`;
+const etoile = `<svg class="deco" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.9L22 9.3l-5.8 4.6 2 7.1L12 17l-6.2 4 2-7.1L2 9.3l7.4-.4z"/></svg>`;
+const noeud = `<svg class="noeud" viewBox="0 0 80 40" aria-hidden="true"><path d="M40 16 C28 0 8 2 12 16 C15 26 30 22 40 16Z M40 16 C52 0 72 2 68 16 C65 26 50 22 40 16Z" fill="#8a2440"/><path d="M40 16 L30 38 L35 36 L40 22 L45 36 L50 38Z" fill="#6b1630"/><circle cx="40" cy="16" r="5" fill="#a33a55"/></svg>`;
+const cadenas = `<svg class="cadenas" viewBox="0 0 24 24" fill="none" stroke="#e2bd7c" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`;
+
+ORDRE.forEach((j, i) => {
+  const ok = dejaArrive(j);
+  const c = document.createElement("div");
+  c.className = "case " + (j === 24 ? "c-noel" : COULEURS[(i + Math.floor(i/6)) % 4]);
+  if (!ok) c.classList.add("verrouillee");
+  if (!apercu && estDecembre && j === jourActuel) c.classList.add("aujourdhui");
+  if (ok && ouvertes.has(j)) c.classList.add("ouverte");
+  c.tabIndex = 0;
+  c.setAttribute("role","button");
+  c.setAttribute("aria-label", `Case du ${j} décembre` + (ok ? "" : " (pas encore disponible)"));
+  c.dataset.jour = j;
+
+  c.innerHTML = `
+    <div class="dedans">
+      ${ok ? `<img alt="Photo du ${j} décembre" loading="lazy">` : ""}
+      <span class="jour-mini">${j}</span>
+    </div>
+    <div class="porte">
+      ${j === 24 ? noeud : ""}
+      ${ok || j === 24 ? "" : cadenas}
+      <span class="num">${j}</span>
+      ${j === 24 ? etoile : flocon}
+      <span class="poignee"></span>
+    </div>`;
+
+  // on ne charge la photo que si la case est débloquée
+  if (ok){
+    const img = c.querySelector("img");
+    let essai = 0;   // on essaie .jpg, puis .jpeg, .png… et sinon une image provisoire
+    img.onerror = () => {
+      essai++;
+      if (essai < EXTENSIONS.length) img.src = cheminPhoto(j, essai);
+      else { img.onerror = null; img.src = photoProvisoire(j); }
+    };
+    img.src = cheminPhoto(j);
+  }
+
+  const action = () => clic(c, j, ok);
+  c.addEventListener("click", action);
+  c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); action(); } });
+  grille.appendChild(c);
+});
+
+/* ---------- Le chat de Noël (dessin) ---------- */
+function chatSVG(classe, id){
+  const u = id;   // identifiants uniques pour les dégradés
+  return `<svg class="${classe}" viewBox="0 0 220 262" aria-hidden="true">
+  <defs>
+    <radialGradient id="roux-${u}" cx="40%" cy="28%" r="80%"><stop offset="0" stop-color="#ffd8a8"/><stop offset=".6" stop-color="#f2a35a"/><stop offset="1" stop-color="#d47a34"/></radialGradient>
+    <linearGradient id="bois-${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1d6"/><stop offset=".5" stop-color="#e2bd7c"/><stop offset="1" stop-color="#b9853e"/></linearGradient>
+    <radialGradient id="nez-${u}" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#ee6f8a"/><stop offset="1" stop-color="#8a2440"/></radialGradient>
+  </defs>
+  <ellipse cx="110" cy="254" rx="72" ry="6" fill="rgba(20,2,8,.28)"/>
+
+  <!-- corps -->
+  <ellipse cx="110" cy="206" rx="60" ry="47" fill="url(#roux-${u})"/>
+  <ellipse cx="110" cy="214" rx="32" ry="34" fill="#fff4e6"/>
+  <path d="M56 196 q10 4 14 12 M54 214 q10 2 16 10 M164 196 q-10 4 -14 12 M166 214 q-10 2 -16 10" stroke="#c9692a" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+  <!-- pattes -->
+  <ellipse cx="88" cy="242" rx="15" ry="8" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.2"/>
+  <path d="M83 245 v-4 M88 246 v-4 M93 245 v-4" stroke="#e2b98e" stroke-width="1.5" stroke-linecap="round"/>
+  <g class="patte-repos">
+    <ellipse cx="132" cy="242" rx="15" ry="8" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.2"/>
+    <path d="M127 245 v-4 M132 246 v-4 M137 245 v-4" stroke="#e2b98e" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- queue rayée enroulée -->
+  <g class="queue">
+    <path d="M164 240 C150 256 100 258 64 252 C52 250 44 244 42 236" stroke="#d47a34" stroke-width="20" stroke-linecap="round" fill="none"/>
+    <path d="M164 240 C150 256 100 258 64 252 C52 250 44 244 42 236" stroke="url(#roux-${u})" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <path d="M60 246 v10 M78 248 v10 M96 249 v10 M114 249 v10 M132 248 v10" stroke="#c9692a" stroke-width="4" stroke-linecap="round"/>
+  </g>
+
+  <!-- patte qui fait coucou -->
+  <g class="bras-coucou">
+    <path d="M150 194 Q172 176 176 146" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/>
+    <path d="M150 194 Q172 176 176 146" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/>
+    <path d="M163 172 l9 3 M167 160 l9 1" stroke="#c9692a" stroke-width="3.4" stroke-linecap="round"/>
+    <ellipse cx="176" cy="136" rx="16" ry="15" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/>
+    <path d="M169 142 q7 6 14 0 q1 -6 -7 -6 q-8 0 -7 6z" fill="#f2aebd"/>
+    <ellipse cx="165" cy="129" rx="3.4" ry="4" fill="#f2aebd"/><ellipse cx="172" cy="124.5" rx="3.4" ry="4" fill="#f2aebd"/>
+    <ellipse cx="180" cy="124.5" rx="3.4" ry="4" fill="#f2aebd"/><ellipse cx="187" cy="129" rx="3.4" ry="4" fill="#f2aebd"/>
+  </g>
+
+  <!-- oreilles + bois de renne -->
+  <path d="M58 70 L54 28 L94 50 Z" fill="url(#roux-${u})"/><path d="M63 62 L60 38 L84 51 Z" fill="#f6c6d1"/>
+  <path d="M162 70 L166 28 L126 50 Z" fill="url(#roux-${u})"/><path d="M157 62 L160 38 L136 51 Z" fill="#f6c6d1"/>
+  <g class="bois">
+    <g stroke="url(#bois-${u})" stroke-width="6" stroke-linecap="round" fill="none">
+      <path d="M74 54 C68 36 70 20 62 6 M70 36 L52 28 M68 22 L78 10"/>
+      <path d="M146 54 C152 36 150 20 158 6 M150 36 L168 28 M152 22 L142 10"/>
+    </g>
+    <path d="M66 60 Q110 34 154 60" stroke="#8a2440" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="66" cy="60" r="5" fill="url(#bois-${u})"/><circle cx="154" cy="60" r="5" fill="url(#bois-${u})"/>
+  </g>
+
+  <!-- tête -->
+  <ellipse cx="110" cy="110" rx="62" ry="52" fill="url(#roux-${u})"/>
+  <path d="M48 112 l-10 4 l10 4 l-8 6 l12 0 M172 112 l10 4 l-10 4 l8 6 l-12 0" fill="url(#roux-${u})" stroke="#d47a34" stroke-width="1"/>
+  <path d="M110 62 v14 M96 64 l3 12 M124 64 l-3 12" stroke="#c9692a" stroke-width="4.4" stroke-linecap="round"/>
+  <ellipse cx="110" cy="136" rx="30" ry="20" fill="#fff4e6"/>
+  <g class="yeux">
+    <path d="M76 112 Q86 100 96 112" stroke="#3a1a10" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+    <path d="M124 112 Q134 100 144 112" stroke="#3a1a10" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+  </g>
+  <ellipse cx="72" cy="130" rx="11" ry="6" fill="#f4a0b0" opacity=".75"/><ellipse cx="148" cy="130" rx="11" ry="6" fill="#f4a0b0" opacity=".75"/>
+  <g class="nez"><circle cx="110" cy="128" r="8" fill="url(#nez-${u})"/><circle cx="107" cy="125" r="2.4" fill="#fff" opacity=".8"/></g>
+  <path d="M110 136 v3 M110 139 Q103 148 96 141 M110 139 Q117 148 124 141" stroke="#3a1a10" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M104 144 Q110 152 116 144 Z" fill="#e8607c"/>
+  <g stroke="#fff4e6" stroke-width="1.5" stroke-linecap="round"><path d="M82 136 L56 132 M82 142 L58 148"/><path d="M138 136 L164 132 M138 142 L162 148"/></g>
+
+  <!-- écharpe -->
+  <path d="M62 160 Q110 178 158 160 L156 172 Q110 190 64 172 Z" fill="#e3a1b0"/>
+  <path d="M80 168 v12 M96 172 v12 M112 173 v12 M128 172 v12 M144 167 v12" stroke="#c97d8e" stroke-width="3"/>
+</svg>`;
+}
+
+document.getElementById("chatAccueil").innerHTML = chatSVG("bonhomme coucou", "a");
+
+/* ---------- Le chat sur la page du calendrier ---------- */
+document.getElementById("chatCal").innerHTML = chatSVG("chat-cal repos", "c");
+const chatPerche = document.getElementById("chatPerche");
+const chatCal = chatPerche.querySelector(".chat-cal");
+const bulleChat = document.getElementById("bulleChat");
+let minuteurChat, indexPhrase = -1, apresGrattage = false;
+
+function auHasard(liste){ return liste[Math.floor(Math.random() * liste.length)]; }
+function parler(texte, duree = 4000){
+  bulleChat.textContent = insecable(texte);
+  bulleChat.classList.add("visible");
+  chatCal.classList.remove("repos"); chatCal.classList.add("coucou");
+  chatPerche.classList.remove("saute"); void chatPerche.offsetWidth; chatPerche.classList.add("saute");
+  clearTimeout(minuteurChat);
+  minuteurChat = setTimeout(() => {
+    bulleChat.classList.remove("visible");
+    chatCal.classList.remove("coucou"); chatCal.classList.add("repos");
+  }, duree);
+}
+function phraseDuJour(){
+  if (apercu) return "Coucou ! Tout est ouvert aujourd'hui ♡";
+  if (!dejaArrive(1)){
+    const n = joursRestants(1);
+    return n <= 1 ? "Plus qu'un dodo avant la première case !" : `Encore ${n} dodos avant la première case !`;
+  }
+  if (!estDecembre) return "Joyeux Noël ! ♡";
+  const j = jourActuel;
+  const toutes = ORDRE.every(k => ouvertes.has(k));
+  if (j >= 24 && toutes) return "Ta surprise spéciale t'attend en bas ♡";
+  if (j <= 24 && !ouvertes.has(j)) return "Psst… la case du jour t'attend ! ♡";
+  if (j >= 24) return "Gratte toutes les cases pour ta surprise ♡";
+  return "Reviens demain pour la suite ♡";
+}
+function toucherChat(){
+  indexPhrase++;
+  parler(indexPhrase % 2 === 0 ? phraseDuJour() : CHAT_PHRASES[(indexPhrase >> 1) % CHAT_PHRASES.length]);
+}
+chatPerche.addEventListener("click", toucherChat);
+chatPerche.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); toucherChat(); } });
+
+/* ---------- Clic sur une case ---------- */
+let minuteurToast;
+function clic(c, j, ok){
+  if (!ok){
+    c.classList.remove("secoue"); void c.offsetWidth; c.classList.add("secoue");
+    const n = joursRestants(j);
+    const quand = n === 1 ? "demain" : `dans ${n} jours`;
+    parler(auHasard(["Hé ! Pas de triche ♡", "Patience, patience…", "Miaou ! Pas encore !"]), 3200);
+    montrerToast("Pas encore ! 🎁", `Cette case s'ouvrira le ${j} décembre, ${quand}. Un peu de patience ♡`);
+    return;
+  }
+  ouvrirPhoto(c, j);
+}
+
+function eclats(c, nombre = 16, portee = 80){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const b = c.getBoundingClientRect();
+  const cx = b.left + b.width/2, cy = b.top + b.height/2;
+  const formes = [
+    ["#e2bd7c","M12 2l2.6 6.9L22 9.3l-5.8 4.6 2 7.1L12 17l-6.2 4 2-7.1L2 9.3l7.4-.4z"],
+    ["#f1c6cf","M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.2 0 3.6 1.3 5.4 3.3 1.8-2 3.2-3.3 5.4-3.3 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"],
+    ["#f8e3bd","M12 1C12 9 15 12 23 12C15 12 12 15 12 23C12 15 9 12 1 12C9 12 12 9 12 1z"]
+  ];
+  for (let i = 0; i < nombre; i++){
+    const [coul, d] = formes[i % 3];
+    const s = 8 + Math.random()*10;
+    const a = Math.random()*Math.PI*2, dist = 50 + Math.random()*portee;
+    const el = document.createElementNS("http://www.w3.org/2000/svg","svg");
+    el.setAttribute("viewBox","0 0 24 24"); el.setAttribute("width", s); el.setAttribute("height", s);
+    el.innerHTML = `<path d="${d}" fill="${coul}"/>`;
+    el.classList.add("eclat");
+    el.style.setProperty("--x0", (cx - s/2) + "px"); el.style.setProperty("--y0", (cy - s/2) + "px");
+    el.style.setProperty("--x1", (cx - s/2 + Math.cos(a)*dist) + "px");
+    el.style.setProperty("--y1", (cy - s/2 + Math.sin(a)*dist - 30) + "px");
+    el.style.setProperty("--r", (Math.random()*240 - 120) + "deg");
+    el.style.animationDelay = (Math.random()*.15) + "s";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1400);
+  }
+}
+
+function montrerToast(titre, texte){
+  const t = document.getElementById("toast");
+  t.innerHTML = `<b>${titre}</b><span>${texte}</span>`;
+  t.classList.add("visible");
+  clearTimeout(minuteurToast);
+  minuteurToast = setTimeout(() => t.classList.remove("visible"), 3200);
+}
+
+/* ---------- Grande photo ---------- */
+const vis = document.getElementById("visionneuse");
+const grandePhoto = document.getElementById("grandePhoto");
+const zone = document.getElementById("photoZone");
+const msg = document.getElementById("grandMessage");
+const astuce = document.getElementById("astuce");
+const tactile = matchMedia("(pointer:coarse)").matches;
+
+function ouvrirPhoto(c, j){
+  const dejaGrattee = ouvertes.has(j);
+  zone.querySelectorAll("canvas").forEach(x => x.remove());
+  grandePhoto.onload = null;
+  grandePhoto.onerror = () => { grandePhoto.onerror = null; grandePhoto.src = photoProvisoire(j); };
+  grandePhoto.alt = `Photo du ${j} décembre`;
+  document.getElementById("grandJour").textContent = `${j} décembre`;
+  msg.textContent = MESSAGES[j] || "";
+  msg.classList.remove("apparait");
+  msg.style.display = (MESSAGES[j] && dejaGrattee) ? "" : "none";
+  astuce.textContent = dejaGrattee ? "" : (tactile ? "Gratte avec ton doigt ✨" : "Gratte avec ta souris ✨");
+  astuce.style.display = dejaGrattee ? "none" : "";
+
+  if (!dejaGrattee){
+    grandePhoto.style.visibility = "hidden";       // on ne montre rien avant que la couche soit prête
+    const pret = () => requestAnimationFrame(() => preparerGrattage(c, j));
+    grandePhoto.onload = pret;
+  } else {
+    grandePhoto.style.visibility = "";
+  }
+  grandePhoto.src = c.querySelector(".dedans img").src;
+  if (!dejaGrattee && grandePhoto.complete && grandePhoto.naturalWidth) requestAnimationFrame(() => preparerGrattage(c, j));
+
+  boutonPhoto.hidden = true; photoPrete = null; jourPhoto = j;
+  if (dejaGrattee){
+    if (grandePhoto.complete && grandePhoto.naturalWidth) preparerPhoto(j);
+    else grandePhoto.addEventListener("load", () => preparerPhoto(j), { once: true });
+  }
+  vis.classList.add("visible"); vis.setAttribute("aria-hidden","false");
+  document.getElementById("fermer").focus();
+}
+function fermerPhoto(){
+  vis.classList.remove("visible"); vis.setAttribute("aria-hidden","true");
+  if (apresGrattage){
+    apresGrattage = false;
+    if (ORDRE.every(k => ouvertes.has(k))) setTimeout(lancerFete, 500);   // la 24e case vient d'être grattée !
+    else setTimeout(() => parler(auHasard(["Ooooh ♡", "Trop belle celle-là…", "Miaou ♡ J'adore !"])), 400);
+  }
+}
+
+/* ---------- La couche à gratter ---------- */
+let jetonGrattage = 0;
+async function preparerGrattage(c, j){
+  const jeton = ++jetonGrattage;
+  try { await document.fonts.ready; } catch(e){}
+  if (jeton !== jetonGrattage || zone.querySelector("canvas")) return;
+  const w = grandePhoto.offsetWidth, h = grandePhoto.offsetHeight;
+  if (!w || !h) return;
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  const cv = document.createElement("canvas");
+  cv.className = "grattage";
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  zone.appendChild(cv);
+  const ctx = cv.getContext("2d", { willReadFrequently: true });
+  ctx.scale(dpr, dpr);
+
+  // fond or rosé métallisé
+  const g = ctx.createLinearGradient(0, 0, w, h);
+  g.addColorStop(0, "#f8e3bd"); g.addColorStop(.3, "#e9b9c3");
+  g.addColorStop(.55, "#f6dca6"); g.addColorStop(.8, "#dca0ae"); g.addColorStop(1, "#e2bd7c");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  // reflet
+  const r = ctx.createLinearGradient(0, h*.2, w, h*.6);
+  r.addColorStop(0, "rgba(255,255,255,0)"); r.addColorStop(.5, "rgba(255,255,255,.35)"); r.addColorStop(1, "rgba(255,255,255,0)");
+  ctx.fillStyle = r; ctx.fillRect(0, 0, w, h);
+  // grain pailleté
+  for (let i = 0; i < w*h/60; i++){
+    ctx.fillStyle = Math.random() < .5 ? `rgba(255,255,255,${Math.random()*.5})` : `rgba(138,36,64,${Math.random()*.08})`;
+    ctx.fillRect(Math.random()*w, Math.random()*h, 1.2, 1.2);
+  }
+  // motif losanges
+  ctx.strokeStyle = "rgba(255,250,240,.35)"; ctx.lineWidth = 1;
+  const pas = 26;
+  for (let x = -h; x < w + h; x += pas){
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + h, h); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x, h); ctx.lineTo(x + h, 0); ctx.stroke();
+  }
+  // cadre
+  ctx.strokeStyle = "rgba(138,36,64,.35)"; ctx.lineWidth = 1.2;
+  ctx.strokeRect(10, 10, w - 20, h - 20);
+  ctx.strokeStyle = "rgba(255,250,240,.7)";
+  ctx.strokeRect(14, 14, w - 28, h - 28);
+  // numéro + texte
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  const tNum = Math.min(w, h) * .38;
+  ctx.font = `600 ${tNum}px "Cormorant Garamond", Georgia, serif`;
+  ctx.fillStyle = "rgba(255,255,255,.55)"; ctx.fillText(j, w/2, h*.44 + 2);
+  ctx.fillStyle = "#8a2440"; ctx.fillText(j, w/2, h*.44);
+  ctx.font = `${Math.max(22, w*.085)}px "Pinyon Script", "Cormorant Garamond", Georgia, serif`;
+  ctx.fillStyle = "#8a2440"; ctx.fillText("Gratte-moi ♡", w/2, h*.44 + tNum*.62);
+
+  // grattage
+  ctx.globalCompositeOperation = "destination-out";
+  ctx.lineCap = "round"; ctx.lineJoin = "round";
+  ctx.lineWidth = Math.max(30, Math.min(w, h) * .13);
+  let appuye = false, dernier = null, compteur = 0, fini = false;
+
+  function point(e){ return { x: e.offsetX * (w / cv.clientWidth), y: e.offsetY * (h / cv.clientHeight) }; }
+  function trace(p){
+    ctx.beginPath();
+    if (dernier){ ctx.moveTo(dernier.x, dernier.y); ctx.lineTo(p.x, p.y); ctx.stroke(); }
+    else { ctx.arc(p.x, p.y, ctx.lineWidth/2, 0, Math.PI*2); ctx.fill(); }
+    dernier = p;
+    if (++compteur % 6 === 0) verifier();
+  }
+  function verifier(){
+    const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
+    let vides = 0, total = 0;
+    for (let i = 3; i < d.length; i += 4 * 23){ total++; if (d[i] < 40) vides++; }
+    if (vides / total > .5) terminer();
+  }
+  function terminer(){
+    if (fini) return; fini = true;
+    apresGrattage = true;
+    cv.classList.add("fini");
+    setTimeout(() => cv.remove(), 900);
+    eclats(zone, 26, 140);
+    astuce.style.display = "none";
+    if (MESSAGES[j]){ msg.style.display = ""; msg.classList.add("apparait"); }
+    preparerPhoto(j);
+    c.classList.add("ouverte");
+    ouvertes.add(j); sauver(); majFinale();
+  }
+  cv.addEventListener("pointerdown", e => {
+    appuye = true; dernier = null; cv.setPointerCapture(e.pointerId);
+    if (grandePhoto.style.visibility) grandePhoto.style.visibility = "";
+    trace(point(e));
+  });
+  cv.addEventListener("pointermove", e => { if (appuye && !fini) trace(point(e)); });
+  const lacher = () => { appuye = false; dernier = null; if (!fini) verifier(); };
+  cv.addEventListener("pointerup", lacher);
+  cv.addEventListener("pointercancel", lacher);
+
+  grandePhoto.style.visibility = "";
+}
+document.getElementById("fermer").addEventListener("click", fermerPhoto);
+vis.addEventListener("click", e => { if (e.target === vis) fermerPhoto(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") fermerPhoto(); });
+
+
+/* ---------- La fête quand tout est découvert ---------- */
+const fete = document.getElementById("fete");
+const feteCarte = document.getElementById("feteCarte");
+document.getElementById("chatFete").innerHTML = chatSVG("bonhomme coucou", "f");
+let confettisActifs = false;
+
+function lancerFete(){
+  fete.classList.add("visible"); fete.setAttribute("aria-hidden","false");
+  fete.scrollTop = 0;
+  confettis();
+}
+function fermerFete(){
+  fete.classList.remove("visible"); fete.setAttribute("aria-hidden","true");
+  confettisActifs = false;
+}
+document.getElementById("ouvrirSurprise").addEventListener("click", () => {
+  fermerFete();
+  setTimeout(() => montrerLettre(LETTRE_FINALE, true), 350);
+});
+document.getElementById("plusTard").addEventListener("click", () => {
+  fermerFete();
+  const f = document.getElementById("finale");
+  f.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!surpriseOuverte) f.classList.add("attire");
+});
+
+function confettis(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = document.getElementById("confettis"), ctx = cv.getContext("2d");
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  const W = innerWidth, H = innerHeight;
+  cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  const couleurs = ["#e2bd7c","#f8e3bd","#f1c6cf","#e3a1b0","#a33a55","#fffaf3","#d9a95e"];
+  const formes = ["ruban","ruban","ruban","coeur","etoile","rond"];
+  const parts = [];
+  function ajouter(n, depuisBas){
+    for (let i = 0; i < n; i++){
+      parts.push({
+        x: depuisBas ? W/2 + (Math.random()-.5)*W*.3 : Math.random()*W,
+        y: depuisBas ? H + 10 : -20 - Math.random()*H*.5,
+        vx: depuisBas ? (Math.random()-.5)*9 : (Math.random()-.5)*1.5,
+        vy: depuisBas ? -(9 + Math.random()*8) : 1.5 + Math.random()*2.5,
+        r: 5 + Math.random()*6, rot: Math.random()*6.28, vr: (Math.random()-.5)*.25,
+        c: couleurs[Math.floor(Math.random()*couleurs.length)],
+        f: formes[Math.floor(Math.random()*formes.length)], p: Math.random()*6.28
+      });
+    }
+  }
+  ajouter(90, true); ajouter(70, false);
+  let debut = performance.now();
+  confettisActifs = true;
+  function coeur(r){ ctx.beginPath(); ctx.moveTo(0, r*.35); ctx.bezierCurveTo(-r*1.2,-r*.5,-r*.45,-r*1.2,0,-r*.45); ctx.bezierCurveTo(r*.45,-r*1.2,r*1.2,-r*.5,0,r*.35); ctx.fill(); }
+  function etoile(r){ ctx.beginPath(); for (let k = 0; k < 10; k++){ const a = k*Math.PI/5 - Math.PI/2, rr = k%2 ? r*.45 : r; ctx.lineTo(Math.cos(a)*rr, Math.sin(a)*rr); } ctx.closePath(); ctx.fill(); }
+  function image(t){
+    if (!confettisActifs){ ctx.clearRect(0, 0, W, H); return; }
+    const ecoule = t - debut;
+    if (ecoule < 3500 && Math.random() < .5) ajouter(2, false);
+    ctx.clearRect(0, 0, W, H);
+    for (let i = parts.length - 1; i >= 0; i--){
+      const q = parts[i];
+      q.vy += .12; q.vy = Math.min(q.vy, 3.4); q.vx *= .985; q.p += .05;
+      q.x += q.vx + Math.sin(q.p)*.6; q.y += q.vy; q.rot += q.vr;
+      if (q.y > H + 30){ parts.splice(i, 1); continue; }
+      ctx.save(); ctx.translate(q.x, q.y); ctx.rotate(q.rot); ctx.fillStyle = q.c;
+      if (q.f === "ruban"){ ctx.scale(1, Math.abs(Math.sin(q.p*2)) + .2); ctx.fillRect(-q.r*.5, -q.r, q.r, q.r*2); }
+      else if (q.f === "coeur") coeur(q.r);
+      else if (q.f === "etoile") etoile(q.r);
+      else { ctx.beginPath(); ctx.arc(0, 0, q.r*.5, 0, 6.28); ctx.fill(); }
+      ctx.restore();
+    }
+    if (parts.length || ecoule < 3500) requestAnimationFrame(image);
+  }
+  requestAnimationFrame(image);
+}
+
+
+/* ---------- Logo de l'onglet : Caramel avec sa guirlande qui scintille ---------- */
+const LOGO_BASE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><g stroke="#4a2a1a" stroke-width="5.4" stroke-linecap="round" fill="none"><path d="M21 21.5 C19.2 15.4 19.4 11 16.2 6.2 M19.6 14.2 L13.2 11.8"/><path d="M43 21.5 C44.6 15.2 44.8 11.2 47.6 6 M44.5 14 L50.8 11.4"/></g><g stroke="#d8a466" stroke-width="2.8" stroke-linecap="round" fill="none"><path d="M21 21.5 C19.2 15.4 19.4 11 16.2 6.2 M19.6 14.2 L13.2 11.8"/><path d="M43 21.5 C44.6 15.2 44.8 11.2 47.6 6 M44.5 14 L50.8 11.4"/></g><path d="M11.4 31.5 C10.6 25 10.2 19.5 10.6 14.2 C16 16.4 21 18.8 25.8 21.8 Z M52.6 31.5 C53.4 25 53.6 19.4 53.4 14 C48 16.6 43 19 38.2 21.8 Z" fill="#ec9850" stroke="#4a2a1a" stroke-width="2" stroke-linejoin="round"/><path d="M14.4 26.6 C14 23.6 13.8 20.8 14 18.8 C17 20 19.6 21.2 22 22.6 Z M49.6 26.6 C50 23.4 50.2 20.8 50 18.8 C47 20 44.4 21.2 42 22.6 Z" fill="#f6c3c9"/><path d="M10.6 37.6 C10 25.8 19.6 18.6 32.2 18.4 C45 18.2 54.4 25.4 53.6 37.8 C53 48.6 43.4 55.2 31.8 55 C19.8 55.2 11.2 48.4 10.6 37.6 Z" fill="#f2a25a" stroke="#4a2a1a" stroke-width="2.1" stroke-linejoin="round"/><path d="M27 25 l1 3 M37 25 l-1 3" stroke="#c96e2c" stroke-width="1.8" stroke-linecap="round"/><path d="M21.8 44.8 C22 39.6 26.6 37.6 32 37.6 C37.6 37.4 42.2 39.8 42.2 44.6 C42.2 49.2 37.6 52 32 52 C26.4 52 21.6 49.4 21.8 44.8 Z" fill="#fff3e3"/><path d="M21.4 36.6 Q24.8 32.2 28.4 36.4 M35.6 36.4 Q39.2 32.4 42.6 36.8" stroke="#3a2016" stroke-width="2.3" fill="none" stroke-linecap="round"/><path d="M15.6 43.2 c1.4 -1.6 4.6 -1.4 5.6 .2 c-1 1.4 -4.4 1.6 -5.6 -.2z M42.8 43.4 c1.2 -1.6 4.4 -1.6 5.6 0 c-1.2 1.6 -4.4 1.6 -5.6 0z" fill="#f19aa6"/><path d="M28.6 41.6 C28.6 39.4 30.2 38.4 32.2 38.4 C34.2 38.4 35.6 39.6 35.4 41.6 C35.2 43.6 33.8 44.8 32 44.8 C30 44.8 28.6 43.6 28.6 41.6 Z" fill="#c92f4c" stroke="#4a2a1a" stroke-width="1.4"/><path d="M32 45 Q29.6 48.6 27 46.2 M32 45 Q34.4 48.6 37 46" stroke="#3a2016" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M32 22.4 C28.6 18.8 24.6 19.6 22.8 17.4 C24 16.2 23.2 14.2 25.2 13.8 C26.2 16 29.4 16.4 32 22.4 Z" fill="#3f8a4f" stroke="#2a3a1a" stroke-width="1.1" stroke-linejoin="round"/><path d="M32 22.4 C35.4 18.8 39.4 19.6 41.2 17.4 C40 16.2 40.8 14.2 38.8 13.8 C37.8 16 34.6 16.4 32 22.4 Z" fill="#2f7440" stroke="#2a3a1a" stroke-width="1.1" stroke-linejoin="round"/><circle cx="30" cy="21.4" r="2.4" fill="#d42f45" stroke="#4a2a1a" stroke-width="1"/><circle cx="34.2" cy="21.6" r="2.4" fill="#d42f45" stroke="#4a2a1a" stroke-width="1"/><circle cx="32.1" cy="18.6" r="2.3" fill="#e8394f" stroke="#4a2a1a" stroke-width="1"/><circle cx="29.4" cy="20.6" r=".7" fill="#fff" opacity=".8"/><circle cx="33.6" cy="20.8" r=".7" fill="#fff" opacity=".8"/><path d="M14.4 49.8 C22 55.6 42 55.6 49.6 49.8 L51.4 55.4 C42.4 61.6 21.6 61.6 12.6 55.4 Z" fill="#c92f4c" stroke="#4a2a1a" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 50.8 C22 56.4 42 56.4 49 50.8" stroke="#4a2a1a" stroke-width="1" fill="none"/>{AMPOULES}</svg>`;
+const AMPOULES_POS = [[16.2,6.4],[18.4,52.6],[25,54.8],[32,55.5],[39,54.8],[45.6,52.6],[47.6,6.2]];
+const COULEURS_ON  = ["#fff7d1","#ffe066","#ff7896","#fff7d1","#ff7896","#ffe066","#fff7d1"];
+const COULEURS_OFF = ["#c9bc95","#b8923a","#a8455a","#c9bc95","#a8455a","#b8923a","#c9bc95"];
+function logoOnglet(phase){
+  let a = "";
+  AMPOULES_POS.forEach(([x, y], i) => {
+    const allumee = (i + phase) % 2 === 0;
+    if (allumee) a += `<circle cx="${x}" cy="${y}" r="5.2" fill="${COULEURS_ON[i]}" opacity=".55"/>`;
+    a += `<circle cx="${x}" cy="${y}" r="2.4" fill="${allumee ? COULEURS_ON[i] : COULEURS_OFF[i]}" stroke="#4a2a1a" stroke-width="1"/>`;
+    if (allumee) a += `<circle cx="${x - .8}" cy="${y - .9}" r=".8" fill="#fff" opacity=".9"/>`;
+  });
+  return LOGO_BASE.replace("{AMPOULES}", a);
+}
+
+(function scintillerLogo(){
+  const lien = document.querySelector('link[rel="icon"]');
+  if (!lien) return;
+  const images = [0, 1].map(ph => "data:image/svg+xml," + encodeURIComponent(logoOnglet(ph)));
+  let ph = 0;
+  lien.href = images[0];
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  setInterval(() => { ph = 1 - ph; lien.href = images[ph]; }, 700);
+})();
+
+
+/* ---------- Télécharger les photos et les lettres ---------- */
+const estMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+async function enregistrer(blob, nom){
+  const fichier = new File([blob], nom, { type: blob.type });
+  // iPhone / Android : le menu de partage permet « Enregistrer l'image » dans Photos
+  if (estMobile && navigator.canShare && navigator.canShare({ files: [fichier] })){
+    try { await navigator.share({ files: [fichier] }); return; }
+    catch(e){ if (e && e.name === "AbortError") return; }
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = nom; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
+}
+function extension(type){ return ({ "image/jpeg":"jpg", "image/png":"png", "image/webp":"webp", "image/svg+xml":"svg" })[type] || "jpg"; }
+
+/* Photo : on prépare le fichier dès qu'elle est découverte, pour que le bouton réponde tout de suite */
+const boutonPhoto = document.getElementById("telechargerPhoto");
+let photoPrete = null, jourPhoto = 0;
+async function preparerPhoto(j){
+  jourPhoto = j; photoPrete = null;
+  boutonPhoto.hidden = false; boutonPhoto.disabled = true;
+  try {
+    let blob = await (await fetch(grandePhoto.src)).blob();
+    if (blob.type === "image/svg+xml"){      // image provisoire : on la convertit en vraie image
+      const c = document.createElement("canvas"); c.width = 900; c.height = 1200;
+      const im = new Image(); im.src = grandePhoto.src; await im.decode();
+      c.getContext("2d").drawImage(im, 0, 0, 900, 1200);
+      blob = await new Promise(r => c.toBlob(r, "image/jpeg", .92));
+    }
+    if (jourPhoto !== j) return;
+    photoPrete = { blob, nom: `calendrier-avent-${String(j).padStart(2,"0")}-decembre.${extension(blob.type)}` };
+  } catch(e){
+    photoPrete = { lien: grandePhoto.src, nom: `calendrier-avent-${String(j).padStart(2,"0")}-decembre.jpg` };
+  }
+  if (jourPhoto === j) boutonPhoto.disabled = false;
+}
+boutonPhoto.addEventListener("click", () => {
+  if (!photoPrete) return;
+  if (photoPrete.blob) enregistrer(photoPrete.blob, photoPrete.nom);
+  else { const a = document.createElement("a"); a.href = photoPrete.lien; a.download = photoPrete.nom; document.body.appendChild(a); a.click(); a.remove(); }
+});
+
+/* Lettre : on la dessine comme une belle page, en image */
+const boutonLettre = document.getElementById("telechargerLettre");
+let lettrePrete = null;
+async function dessinerLettre(L){
+  try { await document.fonts.ready; } catch(e){}
+  const W = 1240, M = 120, largeur = W - 2*M;
+  const c = document.createElement("canvas"), ctx = c.getContext("2d");
+  const policeCorps = '44px "Cormorant Garamond", Georgia, serif', interligne = 70;
+  ctx.font = policeCorps;
+  const lignes = [];
+  insecable(L.texte).split("\n").forEach(par => {
+    if (!par.trim()){ lignes.push(""); return; }
+    let ligne = "";
+    par.split(" ").forEach(mot => {
+      const essai = ligne ? ligne + " " + mot : mot;
+      if (ctx.measureText(essai).width > largeur && ligne){ lignes.push(ligne); ligne = mot; } else ligne = essai;
+    });
+    lignes.push(ligne);
+  });
+  const H = 360 + lignes.length * interligne + 260;
+  c.width = W; c.height = H;
+  const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, "#fffaf3"); g.addColorStop(1, "#f6eadb");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  ctx.strokeStyle = "rgba(201,154,90,.75)"; ctx.lineWidth = 2; ctx.strokeRect(34, 34, W-68, H-68);
+  ctx.strokeStyle = "rgba(201,154,90,.35)"; ctx.lineWidth = 1.5; ctx.strokeRect(48, 48, W-96, H-96);
+  // ornement
+  ctx.strokeStyle = "#c99a5a"; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(W/2-170, 130); ctx.lineTo(W/2-40, 130); ctx.moveTo(W/2+40, 130); ctx.lineTo(W/2+170, 130); ctx.stroke();
+  ctx.fillStyle = "#c97d8e";
+  ctx.beginPath(); ctx.ellipse(W/2, 130, 9, 22, 0, 0, 6.29); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(W/2-24, 130, 20, 8, 0, 0, 6.29); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(W/2+24, 130, 20, 8, 0, 0, 6.29); ctx.fill();
+  ctx.fillStyle = "#e2bd7c"; [W/2-46, W/2+46].forEach(x => { ctx.beginPath(); ctx.arc(x, 130, 5, 0, 6.29); ctx.fill(); });
+  ctx.textAlign = "center"; ctx.fillStyle = "#a3566a"; ctx.font = '500 22px "DM Sans", Arial, sans-serif';
+  const sousTitre = (L === LETTRE_FINALE ? "24 décembre" : "Calendrier de l'Avent").toUpperCase().split("").join(String.fromCharCode(8202));
+  ctx.fillText(sousTitre, W/2, 190);
+  ctx.textAlign = "left"; ctx.fillStyle = "#8a2440"; ctx.font = '96px "Pinyon Script", "Cormorant Garamond", Georgia, serif';
+  ctx.fillText(L.titre, M, 300);
+  ctx.fillStyle = "#4a1222"; ctx.font = policeCorps;
+  let y = 380;
+  lignes.forEach(l => { if (l) ctx.fillText(l, M, y); y += interligne; });
+  ctx.textAlign = "right"; ctx.fillStyle = "#8a2440"; ctx.font = '80px "Pinyon Script", "Cormorant Garamond", Georgia, serif';
+  ctx.fillText(L.signature, W - M, y + 90);
+  return new Promise(r => c.toBlob(r, "image/png"));
+}
+async function preparerLettre(L){
+  lettrePrete = null; boutonLettre.disabled = true;
+  const blob = await dessinerLettre(L);
+  if (lettreCourante !== L) return;
+  lettrePrete = { blob, nom: L === LETTRE_FINALE ? "ma-lettre-de-noel.png" : "ma-lettre-calendrier-avent.png" };
+  boutonLettre.disabled = false;
+}
+boutonLettre.addEventListener("click", () => { if (lettrePrete) enregistrer(lettrePrete.blob, lettrePrete.nom); });
+
+/* ---------- Bloquer la page derrière les fenêtres ouvertes ---------- */
+(function bloquerDerriere(){
+  const fenetres = ["lettreFond", "visionneuse", "fete"].map(id => document.getElementById(id));
+  const maj = () => document.documentElement.classList.toggle("bloque", fenetres.some(f => f.classList.contains("visible")));
+  const obs = new MutationObserver(maj);
+  fenetres.forEach(f => obs.observe(f, { attributes: true, attributeFilter: ["class"] }));
+  maj();
+})();
+
+/* ---------- Musique ---------- */
+const audio = document.getElementById("audio");
+const boutonMusique = document.getElementById("musique");
+audio.addEventListener("loadedmetadata", () => boutonMusique.classList.add("dispo"));
+let fondu;
+function jouerMusique(){
+  if (!boutonMusique.classList.contains("dispo") && audio.readyState === 0) return;
+  if (!audio.paused) return;
+  audio.volume = 0;
+  audio.play().then(() => {
+    boutonMusique.classList.add("joue");
+    clearInterval(fondu);
+    fondu = setInterval(() => { audio.volume = Math.min(.55, audio.volume + .03); if (audio.volume >= .55) clearInterval(fondu); }, 120);
+  }).catch(() => {});
+}
+function couperMusique(){ audio.pause(); boutonMusique.classList.remove("joue"); }
+boutonMusique.addEventListener("click", () => audio.paused ? jouerMusique() : couperMusique());
+
+/* ---------- Lettres ---------- */
+const fond = document.getElementById("lettreFond");
+const scene = document.getElementById("scene");
+const env = document.getElementById("enveloppe");
+const papier = document.getElementById("papier");
+let lettreCourante = null;
+
+function remplirLettre(L){
+  document.getElementById("lettreTitre").textContent = L.titre;
+  document.getElementById("lettreCorps").textContent = L.texte;
+  document.getElementById("lettreSignature").textContent = L.signature;
+  document.getElementById("lettreBouton").textContent = L.bouton;
+}
+(function decorerBoutons(){
+  const modele = document.querySelector(".finale .bouton-deco");
+  document.querySelectorAll("button.bouton").forEach(btn => {
+    const deco = document.createElement("div");
+    deco.className = "bouton-deco pour-bouton";
+    modele.querySelectorAll(".guirlande, .houx").forEach(x => deco.appendChild(x.cloneNode(true)));
+    const amp = document.createElement("div"); amp.className = "ampoules"; amp.setAttribute("aria-hidden","true");
+    deco.appendChild(amp);
+    btn.replaceWith(deco); deco.appendChild(btn);
+    const surPapier = !!deco.closest(".papier");
+    remplirAmpoules(amp, surPapier ? ["#e2bd7c","#e3a1b0","#c97d8e","#d9a95e"] : ["#fff1d6","#f1c6cf","#e2bd7c","#ffd6df"]);
+  });
+})();
+const bonhommeScene = document.getElementById("bonhommeScene");
+const bulle = document.getElementById("bulle");
+const boutonBonhomme = document.getElementById("boutonBonhomme");
+let minuteurBulle, indexBulle = 0, ecrit = 0, enEcriture = false;
+
+const insecable = t => t.replace(/ ([!?:;»])/g, "\u00a0$1");   // jamais de « ! » seul en début de ligne
+function afficherBulle(n){
+  const texte = insecable(BONHOMME.bulles[indexBulle]);
+  bulle.innerHTML = "";
+  bulle.append(texte.slice(0, n));
+  const c = document.createElement("span"); c.className = "curseur"; bulle.append(c);
+}
+function finBulle(){
+  clearInterval(minuteurBulle); enEcriture = false;
+  afficherBulle(BONHOMME.bulles[indexBulle].length);
+  if (indexBulle < BONHOMME.bulles.length - 1) minuteurBulle = setTimeout(bulleSuivante, 1300);
+  else boutonBonhomme.parentElement.classList.add("visible");
+}
+function ecrireBulle(){
+  enEcriture = true; ecrit = 0;
+  clearInterval(minuteurBulle); clearTimeout(minuteurBulle);
+  minuteurBulle = setInterval(() => {
+    ecrit++;
+    afficherBulle(ecrit);
+    if (ecrit >= BONHOMME.bulles[indexBulle].length) finBulle();
+  }, 45);
+}
+function bulleSuivante(){
+  if (indexBulle < BONHOMME.bulles.length - 1){ indexBulle++; ecrireBulle(); }
+}
+bulle.addEventListener("click", () => {          // toucher la bulle = aller plus vite
+  if (enEcriture) finBulle();
+  else if (indexBulle < BONHOMME.bulles.length - 1){ clearTimeout(minuteurBulle); bulleSuivante(); }
+});
+function montrerBonhomme(){
+  indexBulle = 0;
+  boutonBonhomme.textContent = BONHOMME.bouton;
+  boutonBonhomme.parentElement.classList.remove("visible");
+  scene.style.display = "none";
+  papier.classList.remove("visible","montre");
+  bonhommeScene.classList.remove("part");
+  bonhommeScene.classList.add("visible");
+  fond.classList.add("visible"); fond.setAttribute("aria-hidden","false");
+  setTimeout(ecrireBulle, 500);
+}
+boutonBonhomme.addEventListener("click", () => {
+  jouerMusique();                                  // le clic permet de lancer la musique
+  bonhommeScene.classList.add("part");
+  setTimeout(() => {
+    bonhommeScene.classList.remove("visible","part");
+    clearInterval(minuteurBulle); clearTimeout(minuteurBulle);
+    montrerLettre(LETTRE_ACCUEIL, true);
+  }, 480);
+});
+
+function montrerLettre(L, avecEnveloppe){
+  lettreCourante = L;
+  if (L === LETTRE_FINALE){
+    surpriseOuverte = true;
+    document.getElementById("finale").classList.remove("attire");
+    if (!apercu && !simulation){ try { localStorage.setItem("avent-surprise-ouverte", "1"); } catch(e){} envoyerSynchro(); }
+  }
+  bonhommeScene.classList.remove("visible");
+  papier.classList.toggle("grande", L === LETTRE_FINALE);
+  document.querySelector(".env-papier").textContent = L === LETTRE_FINALE ? "Joyeux Noël" : "Pour toi";
+  remplirLettre(L);
+  env.classList.remove("ouverte");
+  papier.classList.remove("visible","montre");
+  scene.style.display = avecEnveloppe ? "" : "none";
+  fond.classList.add("visible"); fond.setAttribute("aria-hidden","false");
+  if (!avecEnveloppe) deplier();
+  else env.focus();
+}
+function deplier(){
+  scene.style.display = "none";
+  preparerLettre(lettreCourante);
+  papier.classList.add("visible");
+  requestAnimationFrame(() => requestAnimationFrame(() => papier.classList.add("montre")));
+  papier.scrollTop = 0;
+  majDefile();
+}
+function ouvrirEnveloppe(){
+  if (env.classList.contains("ouverte")) return;
+  env.classList.add("ouverte");
+  jouerMusique();                       // le geste du clic permet de lancer la musique
+  setTimeout(deplier, 1500);
+}
+env.addEventListener("click", ouvrirEnveloppe);
+env.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); ouvrirEnveloppe(); } });
+document.getElementById("lettreBouton").addEventListener("click", () => fermerLettre());
+const defile = document.getElementById("defile");
+function majDefile(){
+  const reste = papier.scrollHeight - papier.clientHeight - papier.scrollTop;
+  defile.classList.toggle("cache", reste < 80);
+}
+papier.addEventListener("scroll", majDefile, { passive: true });
+function fermerLettre(){
+  fond.classList.remove("visible"); fond.setAttribute("aria-hidden","true");
+  if (lettreCourante === LETTRE_ACCUEIL) setTimeout(() => parler(phraseDuJour()), 900);
+  if (lettreCourante === LETTRE_ACCUEIL && !apercu && !simulation){ try { localStorage.setItem("avent-lettre-lue", "1"); } catch(e){} envoyerSynchro(); }
+}
+document.getElementById("fermerLettre").addEventListener("click", fermerLettre);
+document.getElementById("revoir").addEventListener("click", () => { scrollTo({ top: 0 }); montrerBonhomme(); });
+
+/* ---------- Synchronisation entre ses appareils ---------- */
+const synchroActive = !!(SYNCHRO.base && SYNCHRO.cle) && !apercu && !simulation && !testFete && !depart;
+const urlSynchro = synchroActive ? `${SYNCHRO.base.replace(/\/$/, "")}/${SYNCHRO.cle}.json` : "";
+function lireLocal(){
+  let accueil = false, surprise = false;
+  try { accueil = localStorage.getItem("avent-lettre-lue") === "1"; surprise = localStorage.getItem("avent-surprise-ouverte") === "1"; } catch(e){}
+  return { ouvertes: new Set(ouvertes), accueil, surprise };
+}
+async function lireServeur(delaiMax){
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), delaiMax);
+  try {
+    const r = await fetch(urlSynchro, { signal: ctrl.signal, cache: "no-store" });
+    if (!r.ok) return null;
+    const d = (await r.json()) || {};
+    return {
+      ouvertes: new Set(String(d.ouvertes || "").split(",").map(Number).filter(n => n >= 1 && n <= 24)),
+      accueil: !!d.accueil, surprise: !!d.surprise
+    };
+  } catch(e){ return null; } finally { clearTimeout(t); }
+}
+function appliquer(distant){       // ce qui a été fait sur un autre appareil arrive ici
+  if (!distant) return false;
+  let change = false;
+  distant.ouvertes.forEach(j => {
+    if (!ouvertes.has(j)){
+      ouvertes.add(j); change = true;
+      const c = grille.querySelector(`.case[data-jour="${j}"]`);
+      if (c && !c.classList.contains("verrouillee")) c.classList.add("ouverte");
+    }
+  });
+  try {
+    localStorage.setItem(CLE, JSON.stringify([...ouvertes]));
+    if (distant.accueil && localStorage.getItem("avent-lettre-lue") !== "1"){ localStorage.setItem("avent-lettre-lue", "1"); change = true; }
+    if (distant.surprise && !surpriseOuverte){ localStorage.setItem("avent-surprise-ouverte", "1"); surpriseOuverte = true; change = true; }
+  } catch(e){}
+  if (change) majFinale();
+  return change;
+}
+let envoiPrevu = null;
+function envoyerSynchro(){
+  if (!synchroActive) return;
+  clearTimeout(envoiPrevu);
+  envoiPrevu = setTimeout(async () => {
+    const distant = await lireServeur(6000);      // on fusionne d'abord, pour ne rien écraser
+    if (distant) appliquer(distant);
+    const local = lireLocal();
+    const corps = {
+      ouvertes: [...local.ouvertes].sort((a, b) => a - b).join(","),
+      accueil: local.accueil, surprise: local.surprise, maj: Date.now()
+    };
+    try { await fetch(urlSynchro, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(corps), keepalive: true }); } catch(e){}
+  }, 400);
+}
+// quand il revient sur l'onglet (ex. après avoir gratté sur l'autre appareil)
+document.addEventListener("visibilitychange", async () => {
+  if (!synchroActive || document.visibilityState !== "visible") return;
+  appliquer(await lireServeur(5000));
+});
+
+(async function demarrer(){
+  if (location.hash === "#reinitialiser"){
+    try { Object.keys(localStorage).filter(k => k.startsWith("avent-")).forEach(k => localStorage.removeItem(k)); } catch(e){}
+    let ok = !SYNCHRO.base;
+    if (SYNCHRO.base){
+      try {
+        const r = await fetch(`${SYNCHRO.base.replace(/\/$/, "")}/${SYNCHRO.cle}.json`, { method: "PUT", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ouvertes: "", accueil: false, surprise: false, maj: Date.now() }) });
+        ok = r.ok;
+      } catch(e){}
+    }
+    montrerToast(ok ? "Tout est remis à zéro ✨" : "Remise à zéro incomplète", ok ? "Le calendrier est comme neuf, prêt à être offert ♡" : "Cet appareil est remis à zéro, mais pas la synchro en ligne (pas de réseau ?). Réessaie.");
+    return;
+  }
+  if (synchroActive){
+    const distant = await lireServeur(1800);
+    if (distant){
+      appliquer(distant);
+      const local = lireLocal();
+      const enRetard = [...local.ouvertes].some(j => !distant.ouvertes.has(j)) || (local.accueil && !distant.accueil) || (local.surprise && !distant.surprise);
+      if (enRetard) envoyerSynchro();     // cet appareil a de l'avance : on met le serveur à jour
+    }
+  }
+  let lettreLue = false;
+  try { lettreLue = localStorage.getItem("avent-lettre-lue") === "1"; } catch(e){}
+  if (testFete) setTimeout(lancerFete, 600);
+  else if (!lettreLue || apercu || simulation) montrerBonhomme();
+  else setTimeout(() => parler(phraseDuJour()), 1200);
+})();
+
+/* ---------- Dernière surprise ---------- */
+const finale = document.getElementById("finale");
+const boutonFinale = document.getElementById("boutonFinale");
+const icCadenas = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>`;
+const sousFinale = document.getElementById("sousFinale");
+function remplirAmpoules(box, couleurs){
+  let k = 0;
+  for (let seg = 0; seg < 4; seg++){
+    for (const t of [0.22, 0.5, 0.78]){
+      const y = 4*(1-t)*(1-t) + 2*t*(1-t)*18 + 4*t*t;      // même courbe que le fil
+      const el = document.createElement("span");
+      el.style.left = ((seg + t) / 4 * 100) + "%";
+      el.style.top = (y / 22 * 100) + "%";
+      el.style.color = couleurs[k++ % couleurs.length];
+      box.appendChild(el);
+    }
+  }
+}
+remplirAmpoules(document.getElementById("ampoules"), ["#fff1d6","#f1c6cf","#e2bd7c","#ffd6df"]);
+
+let etatFinale = "";
+let surpriseOuverte = false;
+if (!apercu && !simulation){ try { surpriseOuverte = localStorage.getItem("avent-surprise-ouverte") === "1"; } catch(e){} }
+function majFinale(){
+  finale.classList.add("visible");
+  const toutes = apercu || ORDRE.every(j => ouvertes.has(j));
+  if (!dejaArrive(24)){
+    etatFinale = "date";
+    boutonFinale.className = "attente";
+    boutonFinale.innerHTML = `${icCadenas}<span>Surprise spéciale le 24 décembre</span>`;
+    sousFinale.textContent = "";
+  } else if (!toutes){
+    etatFinale = "cases";
+    boutonFinale.className = "attente";
+    boutonFinale.innerHTML = `${icCadenas}<span>Ta surprise spéciale est presque là…</span>`;
+    sousFinale.textContent = `Gratte toutes les cases pour la débloquer (${ouvertes.size}/24)`;
+  } else {
+    etatFinale = "ok";
+    boutonFinale.className = "";
+    finale.classList.toggle("attire", !surpriseOuverte);   // grossit/dégrossit tant qu'il ne l'a pas ouverte
+    boutonFinale.textContent = "Ta surprise spéciale ♡";
+    sousFinale.textContent = "";
+  }
+}
+boutonFinale.addEventListener("click", () => {
+  if (etatFinale === "ok") return montrerLettre(LETTRE_FINALE, true);
+  finale.classList.remove("secoue"); void finale.offsetWidth; finale.classList.add("secoue");
+  if (etatFinale === "date"){
+    const n = joursRestants(24);
+    montrerToast("Patience… 🎁", `Cette surprise se dévoile le 24 décembre${n > 1 ? `, dans ${n} jours` : n === 1 ? ", demain" : ""}. Ça vaut le coup d'attendre ♡`);
+  } else {
+    montrerToast("Encore un petit effort ✨", `Il te reste ${24 - ouvertes.size} case${24 - ouvertes.size > 1 ? "s" : ""} à gratter pour débloquer ta surprise.`);
+  }
+});
+majFinale();
+
+/* ---------- Neige ---------- */
+(function(){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const cv = document.getElementById("neige"), ctx = cv.getContext("2d");
+  let W, H, flocons = [];
+  function taille(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px";
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    const n = Math.round(Math.min(90, W * H / 14000));
+    flocons = Array.from({length:n}, () => {
+      const loin = Math.random() < .6;           // flocons lointains : plus petits et plus lents
+      return {
+        x: Math.random()*W, y: Math.random()*H,
+        forme: true,
+        r: loin ? Math.random()*1.5+2.2 : Math.random()*2.5+3.8,
+        v: loin ? Math.random()*.25+.15 : Math.random()*.4+.3,
+        o: loin ? Math.random()*.3+.25 : Math.random()*.35+.45,
+        p: Math.random()*Math.PI*2, rot: Math.random()*Math.PI, vr: (Math.random()-.5)*.01
+      };
+    });
+  }
+  function flocon(f){
+    ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(f.rot);
+    ctx.strokeStyle = `rgba(255,248,250,${f.o})`; ctx.lineWidth = .9; ctx.lineCap = "round";
+    const s = f.r;
+    for (let i = 0; i < 6; i++){
+      ctx.rotate(Math.PI/3);
+      ctx.beginPath();
+      ctx.moveTo(0,0); ctx.lineTo(0,-s);
+      ctx.moveTo(0,-s*.55); ctx.lineTo(-s*.28,-s*.8);
+      ctx.moveTo(0,-s*.55); ctx.lineTo(s*.28,-s*.8);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+  function boucle(){
+    ctx.clearRect(0,0,W,H);
+    for (const f of flocons){
+      f.y += f.v; f.p += .008; f.x += Math.sin(f.p)*.3; f.rot += f.vr;
+      if (f.y > H + 10){ f.y = -10; f.x = Math.random()*W; }
+      if (f.forme) flocon(f);
+      else {
+        ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,248,250,${f.o})`; ctx.fill();
+      }
+    }
+    requestAnimationFrame(boucle);
+  }
+  addEventListener("resize", taille); taille(); boucle();
+})();
+</script>
+</body>
+</html>

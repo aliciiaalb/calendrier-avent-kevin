@@ -1,0 +1,90 @@
+CALENDRIER DE L'AVENT — MODE D'EMPLOI
+======================================
+
+1. METTRE TES PHOTOS
+   Ouvre le dossier "photos". Remplace chaque image par la tienne,
+   en gardant le même nom : 01, 02, 03 … 24.
+   - 01 = la photo du 1er décembre, 24 = celle du 24.
+   - Formats acceptés : .jpg, .jpeg, .png, .webp
+   - Photos d'iPhone en .HEIC : elles ne s'affichent pas dans les navigateurs.
+     Convertis-les d'abord en JPG (ou, sur l'iPhone : Réglages > Appareil photo >
+     Formats > « Le plus compatible » pour les prochaines photos).
+   - Pense à supprimer l'ancienne image si ta photo a une autre extension
+     (par ex. si tu mets 05.png, supprime 05.jpg).
+
+2. LA MUSIQUE (facultatif)
+   Mets un fichier nommé exactement "musique.mp3" à côté de index.html.
+   Le bouton de musique n'apparaît que si ce fichier est là.
+
+3. LA GRANDE LETTRE FINALE (surprise du 24)
+   Elle est dans le fichier  lettre-finale.js  (à côté de index.html).
+   Ouvre-le avec le Bloc-notes (Windows) ou TextEdit (Mac) — sur Mac,
+   fais Format > « Convertir au format texte » si besoin.
+   - Écris ta lettre entre les deux accents graves  `  …  `
+   - Aussi long que tu veux. Saute une ligne pour un nouveau paragraphe.
+   - Apostrophes et guillemets : aucun souci.
+   - Seul caractère interdit dans ton texte : l'accent grave  `
+   Enregistre, puis recharge la page pour voir le résultat.
+
+4. LES AUTRES TEXTES (facultatif)
+   Ouvre index.html de la même façon et cherche « À PERSONNALISER » :
+   - les petits mots sous chaque photo (MESSAGES),
+   - ce que dit Caramel (le chat) à l'accueil, bulle par bulle (BONHOMME),
+   - ce qu'il dit sur le calendrier quand on le touche (CHAT_PHRASES),
+   - la lettre d'accueil (LETTRE_ACCUEIL).
+   Ne modifie que le texte entre les guillemets ou les ` `.
+
+5. TESTER CHEZ TOI
+   Double-clique sur index.html : il s'ouvre dans ton navigateur.
+   Puis ajoute l'un de ces codes à la fin de l'adresse et appuie sur Entrée :
+
+     #depart   → exactement comme SA toute première visite
+                 (lettre d'accueil, cases verrouillées). Repart de zéro à chaque fois.
+     #veille   → comme le soir où tu lui offres (30 novembre)
+     #jour-5   → comme le 5 décembre : cases 1 à 5 ouvertes, le reste verrouillé.
+                 Change le chiffre : #jour-1, #jour-12, #jour-24…
+     #fete     → l'animation qui se lance quand les 24 cases sont grattées
+     #reinitialiser → remet TOUT à zéro (ton appareil + la synchro en ligne)
+     #apercu   → tout est débloqué, y compris la surprise spéciale
+                 (pour relire ta grande lettre).
+
+   Rien de ce que tu fais dans ces modes n'est enregistré : tu peux
+   tester autant que tu veux.
+
+6. LE METTRE EN LIGNE POUR LUI
+   Le plus simple : Netlify Drop (gratuit).
+   - Va sur  app.netlify.com/drop
+   - Crée un compte gratuit (sinon le site peut être supprimé au bout d'un moment)
+   - Fais glisser TOUT le dossier (celui qui contient index.html et photos)
+     dans la zone indiquée.
+   - Tu obtiens un lien du type  https://quelque-chose.netlify.app
+     C'est ce lien que tu lui envoies (sans #apercu !).
+   Attention : toute personne qui a le lien peut voir le site et les photos.
+   Ne le partage qu'avec lui.
+
+   Pour modifier plus tard : dans ton compte Netlify, onglet « Deploys »,
+   refais glisser le dossier mis à jour.
+
+7. LES TÉLÉCHARGEMENTS
+   Sous chaque photo grattée et sous chaque lettre, il y a un bouton
+   « Télécharger ». Sur iPhone, il ouvre le menu de partage : il suffit de
+   choisir « Enregistrer l'image » pour la garder dans Photos. Sur ordinateur,
+   le fichier se télécharge directement. La lettre est enregistrée comme une
+   belle image (cadre doré, ta signature).
+   Ces boutons ne marchent qu'une fois le site en ligne (Netlify) : dans
+   l'aperçu Claude ils sont bloqués, et en ouvrant index.html depuis ton
+   ordinateur ils peuvent ne pas fonctionner.
+
+8. LA SYNCHRONISATION ENTRE SES APPAREILS
+   L'avancement (cases grattées, accueil vu, surprise ouverte) est enregistré
+   en ligne dans ta base Firebase « calendrier-avent ». Qu'il ouvre le site sur
+   son téléphone ou son PC, il retrouve exactement le même avancement.
+   Sans réseau, le calendrier marche quand même et se resynchronise ensuite.
+
+   ⚠ TRÈS IMPORTANT AVANT DE LUI OFFRIR
+   Si tu ouvres le site en ligne SANS code (#apercu, #depart, #jour-5…),
+   tes tests comptent pour de vrai : l'accueil sera marqué « vu » et les cases
+   grattées le seront aussi chez lui.
+   → Teste toujours avec un code (#depart, #jour-5, #apercu, #fete).
+   → Juste avant de lui envoyer le lien, ouvre une fois ton site avec
+     #reinitialiser à la fin de l'adresse : tout redevient neuf.
