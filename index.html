@@ -1424,9 +1424,9 @@ function clic(c, j, ok){
     const n = joursRestants(j);
     const quand = n === 1 ? "demain" : `dans ${n} jours`;
     parler(auHasard([
-      { texte: "Hé ! Pas de triche ♡", humeur: "gronde" },
+      { texte: "Hé ! Pas de triche !!", humeur: "mefiant" },
       { texte: "Patience, patience…", humeur: "patience" },
-      { texte: "Miaou ! Pas encore !", humeur: "mefiant" }
+      { texte: "Miaou ! Pas encore !", humeur: "gronde" }
     ]), 3200);
     montrerToast("Pas encore ! 🎁", `Cette case s'ouvrira le ${j} décembre, ${quand}. Un peu de patience ♡`);
     return;
