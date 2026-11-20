@@ -667,6 +667,24 @@
   .pose-doigt{display:none}
   :is(.humeur-patience,.humeur-gronde) :is(.bras-coucou,.patte-repos){display:none}
 
+
+
+
+  /* bouton « voir en grand » + affichage plein écran */
+  .agrandir{position:absolute;right:8px;bottom:8px;z-index:3;width:34px;height:34px;border-radius:50%;border:none;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;background:rgba(40,6,16,.55);color:#fff;backdrop-filter:blur(4px);
+    box-shadow:0 2px 8px rgba(0,0,0,.3);transition:transform .2s, background .2s;animation:apparait .4s ease both}
+  .agrandir[hidden]{display:none}
+  .agrandir:hover{transform:scale(1.1);background:rgba(138,36,64,.8)}
+  .agrandir svg{width:17px;height:17px}
+  .plein-ecran{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;background:rgba(10,2,5,.94);
+    opacity:0;pointer-events:none;transition:opacity .3s;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0)}
+  .plein-ecran.visible{opacity:1;pointer-events:auto}
+  .plein-ecran img{max-width:100vw;max-height:100vh;object-fit:contain;display:block;touch-action:pinch-zoom;transform:scale(.96);transition:transform .3s}
+  .plein-ecran.visible img{transform:none}
+  .fermer-grand{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;
+    background:rgba(255,255,255,.15);color:#fff;font-size:1.5rem;backdrop-filter:blur(6px)}
+
   /* ---------- Boîte d'où Caramel veut sortir ---------- */
   .boite{width:clamp(130px,36vw,170px);height:auto;overflow:visible;filter:drop-shadow(0 14px 26px rgba(0,0,0,.45));transform-origin:50% 100%;animation:agite 3.4s ease-in-out infinite}
   @keyframes agite{
@@ -867,12 +885,20 @@
   </div>
 </div>
 
+<div class="plein-ecran" id="pleinEcran" aria-hidden="true">
+  <img id="photoGrande" alt="">
+  <button class="fermer-grand" id="fermerGrand" aria-label="Fermer">×</button>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <div class="visionneuse" id="visionneuse" aria-hidden="true">
   <div class="carte" role="dialog" aria-modal="true" aria-label="Photo du jour">
     <button class="fermer" id="fermer" aria-label="Fermer">×</button>
-    <div class="photo-zone" id="photoZone"><img id="grandePhoto" alt=""></div>
+    <div class="photo-zone" id="photoZone"><img id="grandePhoto" alt="">
+      <button class="agrandir" id="agrandirBtn" hidden aria-label="Voir la photo en grand" title="Voir en grand">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>
+      </button></div>
     <div class="legende">
       <small id="grandJour" class="date-main"></small>
       <div class="astuce" id="astuce"></div>
@@ -1422,10 +1448,23 @@ const grandePhoto = document.getElementById("grandePhoto");
 const zone = document.getElementById("photoZone");
 const msg = document.getElementById("grandMessage");
 const astuce = document.getElementById("astuce");
+
 const tactile = matchMedia("(pointer:coarse)").matches;
+const agrandirBtn = document.getElementById("agrandirBtn");
+const pleinEcran = document.getElementById("pleinEcran");
+const photoGrande = document.getElementById("photoGrande");
+function ouvrirEnGrand(){
+  photoGrande.src = grandePhoto.src; photoGrande.alt = grandePhoto.alt;
+  pleinEcran.classList.add("visible"); pleinEcran.setAttribute("aria-hidden","false");
+}
+function fermerEnGrand(){ pleinEcran.classList.remove("visible"); pleinEcran.setAttribute("aria-hidden","true"); }
+agrandirBtn.addEventListener("click", e => { e.stopPropagation(); ouvrirEnGrand(); });
+document.getElementById("fermerGrand").addEventListener("click", fermerEnGrand);
+pleinEcran.addEventListener("click", e => { if (e.target === pleinEcran) fermerEnGrand(); });
 
 function ouvrirPhoto(c, j){
   const dejaGrattee = ouvertes.has(j);
+  agrandirBtn.hidden = !dejaGrattee;
   zone.querySelectorAll("canvas").forEach(x => x.remove());
   grandePhoto.onload = null;
   grandePhoto.onerror = () => { grandePhoto.onerror = null; grandePhoto.src = photoProvisoire(j); };
@@ -1549,6 +1588,7 @@ async function preparerGrattage(c, j){
     astuce.style.display = "none";
     if (MESSAGES[j]){ msg.style.display = ""; msg.classList.add("apparait"); }
     preparerPhoto(j);
+    agrandirBtn.hidden = false;
     c.classList.add("ouverte");
     ouvertes.add(j); sauver(); majFinale();
   }
@@ -1566,7 +1606,10 @@ async function preparerGrattage(c, j){
 }
 document.getElementById("fermer").addEventListener("click", fermerPhoto);
 vis.addEventListener("click", e => { if (e.target === vis) fermerPhoto(); });
-document.addEventListener("keydown", e => { if (e.key === "Escape") fermerPhoto(); });
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  if (pleinEcran.classList.contains("visible")) fermerEnGrand(); else fermerPhoto();
+});
 
 
 /* ---------- La fête quand tout est découvert ---------- */
@@ -1790,7 +1833,7 @@ boutonLettre.addEventListener("click", () => { if (lettrePrete) enregistrer(lett
 
 /* ---------- Bloquer la page derrière les fenêtres ouvertes ---------- */
 (function bloquerDerriere(){
-  const fenetres = ["lettreFond", "visionneuse", "fete"].map(id => document.getElementById(id));
+  const fenetres = ["lettreFond", "visionneuse", "fete", "pleinEcran"].map(id => document.getElementById(id));
   const maj = () => document.documentElement.classList.toggle("bloque", fenetres.some(f => f.classList.contains("visible")));
   const obs = new MutationObserver(maj);
   fenetres.forEach(f => obs.observe(f, { attributes: true, attributeFilter: ["class"] }));
