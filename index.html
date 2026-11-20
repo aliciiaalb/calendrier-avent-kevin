@@ -543,6 +543,130 @@
   @keyframes penche{0%,100%{transform:rotate(0)}50%{transform:rotate(-6deg)}}
   @keyframes jaillit{0%{transform:translateY(60px) scale(.4);opacity:0}60%{transform:translateY(-14px) scale(1.06);opacity:1}100%{transform:none}}
 
+
+  /* ---------- Poses de Caramel ---------- */
+  .pose{display:none}
+  .humeur-reflexion .pose-penseur,.humeur-embarras .pose-joues,.humeur-fierte .pose-hanches,
+  .humeur-amour .pose-coeur,.humeur-excitation .pose-haut,.humeur-surprise .pose-haut{display:inline}
+  :is(.humeur-reflexion,.humeur-embarras,.humeur-fierte,.humeur-amour,.humeur-excitation,.humeur-surprise) :is(.bras-coucou,.patte-repos){display:none}
+  .humeur-excitation .bras-g{transform-origin:74px 190px;animation:agiteG .32s ease-in-out infinite alternate}
+  .humeur-excitation .bras-d{transform-origin:146px 190px;animation:agiteD .32s ease-in-out infinite alternate}
+  @keyframes agiteG{from{transform:rotate(-10deg)}to{transform:rotate(8deg)}}
+  @keyframes agiteD{from{transform:rotate(10deg)}to{transform:rotate(-8deg)}}
+  .humeur-reflexion .pose-penseur{transform-origin:150px 196px;animation:tapote 1.6s ease-in-out infinite}
+  @keyframes tapote{0%,100%{transform:rotate(0)}50%{transform:rotate(-4deg)}}
+  .humeur-embarras .pose-joues{animation:gigote 1.3s ease-in-out infinite}
+  @keyframes gigote{0%,100%{transform:translateY(0)}50%{transform:translateY(2px)}}
+  .humeur-amour .pose-coeur path[fill="#e8394f"]{transform-box:fill-box;transform-origin:center;animation:battement .9s ease-in-out infinite}
+  @keyframes battement{0%,100%{transform:scale(1)}20%{transform:scale(1.15)}40%{transform:scale(1)}60%{transform:scale(1.1)}}
+
+
+  /* gêné : les joues rougissent */
+  .rouge-vif{display:none}
+  .humeur-embarras .rouge-vif{display:inline}
+  .humeur-embarras .joues{display:none}
+  .rouge-vif .voile{opacity:0;animation:voile 1.6s ease-in-out infinite}
+  .rouge-vif .joue-g,.rouge-vif .joue-d{transform-box:fill-box;transform-origin:center;animation:rougit 1.6s ease-in-out infinite}
+  @keyframes voile{0%,100%{opacity:.06}50%{opacity:.2}}
+  @keyframes rougit{0%,100%{transform:scale(.85);opacity:.7}50%{transform:scale(1.15);opacity:.95}}
+  .humeur-embarras .rougeur{stroke:#d42f4c}
+
+
+  /* Caramel allongé / assis sur le calendrier */
+  .humeur-content .bouche{display:none} .humeur-content .bouche-grande{display:inline}
+  .chat-perche #chatCal{position:relative}
+  .chat-cal{transition:opacity .35s, transform .45s cubic-bezier(.3,1.4,.5,1);transform-origin:50% 100%}
+  .chat-allonge{position:absolute;right:-6%;bottom:2px;width:165%;height:auto;overflow:visible;pointer-events:none;
+    filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));opacity:0;transform:translateY(6px);transition:opacity .35s, transform .35s}
+  .chat-perche.dort .chat-cal{opacity:0;transform:translateY(16px) scale(.85)}
+  .chat-perche.dort .chat-allonge{opacity:1;transform:none}
+  .chat-allonge .corps-a{transform-box:fill-box;transform-origin:50% 100%;animation:respireA 3.6s ease-in-out infinite}
+  @keyframes respireA{0%,100%{transform:scale(1,1)}50%{transform:scale(1.01,1.05)}}
+  .chat-allonge .queue-a{animation:none}
+  @keyframes queueA{0%,100%{transform:rotate(0)}50%{transform:rotate(14deg)}}
+  .zzz text{opacity:0;animation:zzz 3.6s ease-in-out infinite}
+  .zzz .z2{animation-delay:1.2s}.zzz .z3{animation-delay:2.4s}
+  @keyframes zzz{0%{opacity:0;transform:translate(0,6px)}25%{opacity:.9}100%{opacity:0;transform:translate(8px,-10px)}}
+  @media (prefers-reduced-motion:reduce){.chat-allonge *{animation:none!important}}
+
+
+  /* nouvelles humeurs */
+  .yeux-dort{display:none}
+  .humeur-malice .yeux{display:none} .humeur-malice .yeux-clin{display:inline} .humeur-malice .pose-penseur{display:inline}
+  .humeur-baille .yeux{display:none} .humeur-baille .yeux-dort{display:inline}
+  .humeur-baille .bouche{display:none} .humeur-baille .bouche-o{display:inline}
+  .humeur-baille .bouche-o ellipse{transform-box:fill-box;transform-origin:center top;animation:baille 2s ease-in-out infinite}
+  @keyframes baille{0%,100%{transform:scale(1,1)}40%,60%{transform:scale(1.5,1.9)}}
+  .humeur-baille .pose-haut{display:inline}
+  .humeur-ronron .joues ellipse{opacity:1}
+  .humeur-ronron .pose-joues{display:none}
+  .humeur-ronron .e-coeurs{display:inline}
+  :is(.humeur-malice,.humeur-baille) :is(.bras-coucou,.patte-repos){display:none}
+  .bonhomme.humeur-malice{animation:balance 2.4s ease-in-out infinite}
+  .bonhomme.humeur-baille{animation:etire 2s ease-in-out infinite}
+  @keyframes etire{0%,100%{transform:scale(1,1)}50%{transform:scale(.97,1.05)}}
+
+
+  /* humeurs ajustées aux paroles */
+  .yeux-plisses,.yeux-louche,.bouche-plate,.nez-halo{display:none}
+  .humeur-clin .yeux{display:none} .humeur-clin .yeux-clin{display:inline}
+  .humeur-clin .bouche{display:none} .humeur-clin .bouche-grande{display:inline}
+  .humeur-calin .pose-calin{display:inline} .humeur-calin .joues ellipse{opacity:1}
+  .humeur-calin .e-coeurs{display:inline} .humeur-calin .e-coeurs .c2,.humeur-calin .e-coeurs .c3{display:none}
+  .humeur-calin .pose-calin{transform-origin:146px 192px;animation:tend 1.8s ease-in-out infinite}
+  @keyframes tend{0%,100%{transform:rotate(0)}50%{transform:rotate(-6deg)}}
+  .humeur-mefiant .yeux{display:none} .humeur-mefiant .yeux-plisses{display:inline}
+  .humeur-mefiant .bouche{display:none} .humeur-mefiant .bouche-plate{display:inline}
+  .humeur-mefiant .pose-hanches{display:inline}
+  .humeur-nez .yeux{display:none} .humeur-nez .yeux-louche{display:inline}
+  .humeur-nez .pose-penseur{display:inline}
+  .humeur-nez .nez-halo{display:inline}
+  .humeur-nez .nez-halo,.humeur-nez .nez{transform-box:fill-box;transform-origin:center;animation:nezFort .8s ease-in-out infinite}
+  @keyframes nezFort{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.25);filter:brightness(1.4) drop-shadow(0 0 6px #ff6b8b)}}
+  :is(.humeur-calin,.humeur-mefiant,.humeur-nez) :is(.bras-coucou,.patte-repos){display:none}
+
+  /* il tourne en rond pour trouver sa place, puis se couche en croissant */
+  .chat-marche{position:absolute;right:-10%;bottom:0;width:150%;height:auto;overflow:visible;pointer-events:none;opacity:0;
+    filter:drop-shadow(0 5px 10px rgba(0,0,0,.35))}
+  .chat-perche.tourne .chat-cal{opacity:0;transition:opacity .2s}
+  .chat-perche.tourne .chat-marche{opacity:1}
+  .chat-marche .trajet,.chat-marche .sens{transform-box:fill-box;transform-origin:50% 100%}
+  .chat-perche.tourne .chat-marche .trajet{animation:rond 2.8s ease-in-out forwards}
+  .chat-perche.tourne .chat-marche .sens{animation:sens 2.8s linear forwards}
+  @keyframes rond{
+    0%{transform:translate(0,0) scale(.95)}
+    12.5%{transform:translate(16%,-4%) scale(.9)} 25%{transform:translate(2%,-12%) scale(.78)}
+    37.5%{transform:translate(-16%,-5%) scale(.86)} 50%{transform:translate(0,0) scale(.95)}
+    62.5%{transform:translate(14%,-4%) scale(.9)} 75%{transform:translate(2%,-11%) scale(.8)}
+    87.5%{transform:translate(-12%,-4%) scale(.88)} 94%{transform:translate(-4%,0) scale(.95)}
+    100%{transform:translate(-4%,6%) scale(1.02,.7)}}
+  @keyframes sens{
+    0%,12%{transform:scaleX(1)} 13.5%,37%{transform:scaleX(-1)} 38.5%,62%{transform:scaleX(1)}
+    63.5%,87%{transform:scaleX(-1)} 88.5%,100%{transform:scaleX(1)}}
+  .chat-perche.tourne .chat-marche .patte{transform-box:fill-box;transform-origin:50% 0}
+  .chat-perche.tourne .chat-marche .p1,.chat-perche.tourne .chat-marche .p4{animation:pas .36s ease-in-out infinite alternate}
+  .chat-perche.tourne .chat-marche .p2,.chat-perche.tourne .chat-marche .p3{animation:pas .36s ease-in-out infinite alternate-reverse}
+  @keyframes pas{from{transform:rotate(-18deg)}to{transform:rotate(18deg)}}
+  .chat-marche .queue-m{transform-origin:48px 80px;animation:queueM .7s ease-in-out infinite alternate}
+  @keyframes queueM{from{transform:rotate(-8deg)}to{transform:rotate(10deg)}}
+  .chat-perche.dort .chat-allonge .corps-a{animation:respireA 3.6s ease-in-out infinite}
+  .chat-perche.dort .chat-allonge{animation:seCouche .6s ease-out}
+  @keyframes seCouche{from{transform:translateY(8px) scale(1.04,.9)}to{transform:none}}
+
+
+  /* patience : yeux fermés, patte « attends » / hé, pas de triche : patte qui fait non-non */
+  .humeur-patience .yeux{display:none} .humeur-patience .yeux-dort{display:inline}
+  .humeur-patience .pose-calin{display:inline}
+  .humeur-patience .pose-calin{animation:none}
+  .chat-cal.humeur-patience,.bonhomme.humeur-patience{animation:hocheTete 2.4s ease-in-out infinite;transform-origin:50% 100%}
+  @keyframes hocheTete{0%,100%{transform:rotate(0)}30%{transform:rotate(-3deg) translateY(1px)}60%{transform:rotate(2deg)}}
+  .humeur-gronde .yeux{display:none} .humeur-gronde .yeux-plisses{display:inline}
+  .humeur-gronde .bouche{display:none} .humeur-gronde .bouche-o{display:inline}
+  .humeur-gronde .pose-doigt{display:inline;transform-origin:146px 192px;animation:nonNon .5s ease-in-out infinite alternate}
+  @keyframes nonNon{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+  .pose-doigt{display:none}
+  :is(.humeur-patience,.humeur-gronde) :is(.bras-coucou,.patte-repos){display:none}
+
   /* ---------- Boîte d'où Caramel veut sortir ---------- */
   .boite{width:clamp(130px,36vw,170px);height:auto;overflow:visible;filter:drop-shadow(0 14px 26px rgba(0,0,0,.45));transform-origin:50% 100%;animation:agite 3.4s ease-in-out infinite}
   @keyframes agite{
@@ -784,13 +908,19 @@ const SYNCHRO = {
 };
 
 const CHAT_PHRASES = [
-  "Ronron… ♡",
-  "Je surveille le calendrier : pas de triche !",
-  "Tu sais qu'elle t'aime très fort ?",
-  "Miaou !",
-  "Une caresse ? ♡",
-  "Mon nez brille pour te guider jusqu'à Noël !"
+  { texte: "Ronron… ♡",                                    humeur: "calin" },
+  { texte: "Je surveille le calendrier : pas de triche !",  humeur: "mefiant" },
+  { texte: "Tu sais qu'elle t'aime très fort ?",            humeur: "amour" },
+  { texte: "Miaou !",                                       humeur: "calin" },
+  { texte: "Une caresse ? ♡",                               humeur: "embarras" },
+  { texte: "Mon nez brille pour te guider jusqu'à Noël !",  humeur: "nez" },
+  { texte: "Psst… tu veux un indice pour demain ? Non !",   humeur: "malice" },
+  { texte: "*baille* … pardon, je faisais la sieste.",      humeur: "baille" }
 ];
+/* humeurs possibles : joie, content, clin (clin d'œil), calin (patte tendue), embarras, fierte,
+   mefiant (yeux plissés), amour, excitation, surprise, reflexion, malice (chuchote), baille (s'étire),
+   nez (louche sur son nez qui brille), patience (yeux fermés, patte « attends »),
+   gronde (sourcils froncés, patte qui fait non-non) */
 
 /* Ce que dit Caramel, le chat de Noël, bulle par bulle (avant la lettre d'accueil)
    humeur possible : joie, embarras, fierte, amour, excitation, surprise, reflexion */
@@ -1016,12 +1146,27 @@ function chatSVG(classe, id){
     <path d="M86 117 C76 110 76 100 82 100 C84.5 100 86 102 86 104 C86 102 87.5 100 90 100 C96 100 96 110 86 117 Z"/>
     <path d="M134 117 C124 110 124 100 130 100 C132.5 100 134 102 134 104 C134 102 135.5 100 138 100 C144 100 144 110 134 117 Z"/>
   </g>
+  <g class="yeux-dort"><path d="M76 106 Q86 115 96 106 M124 106 Q134 115 144 106" stroke="#3a1a10" stroke-width="3.4" fill="none" stroke-linecap="round"/></g>
+  <g class="yeux-plisses">
+    <path d="M75 104 L97 110 M145 104 L123 110" stroke="#3a1a10" stroke-width="3.6" stroke-linecap="round"/>
+    <circle cx="88" cy="113" r="3.4" fill="#2a120a"/><circle cx="132" cy="113" r="3.4" fill="#2a120a"/>
+  </g>
+  <g class="yeux-louche">
+    <circle cx="86" cy="108" r="9.5" fill="#fffaf3" stroke="#3a1a10" stroke-width="1.8"/><circle cx="134" cy="108" r="9.5" fill="#fffaf3" stroke="#3a1a10" stroke-width="1.8"/>
+    <circle cx="91" cy="112" r="4.6" fill="#2a120a"/><circle cx="129" cy="112" r="4.6" fill="#2a120a"/>
+    <circle cx="92.4" cy="110.4" r="1.4" fill="#fff"/><circle cx="130.4" cy="110.4" r="1.4" fill="#fff"/>
+  </g>
   <g class="yeux-clin">
     <path d="M76 112 Q86 100 96 112" stroke="#3a1a10" stroke-width="3.4" fill="none" stroke-linecap="round"/>
     <ellipse cx="134" cy="108" rx="7.5" ry="9" fill="#2a120a"/><circle cx="137" cy="104" r="3" fill="#fff"/>
   </g>
   <g class="joues"><ellipse cx="72" cy="130" rx="11" ry="6" fill="#f4a0b0" opacity=".75"/><ellipse cx="148" cy="130" rx="11" ry="6" fill="#f4a0b0" opacity=".75"/></g>
+  <g class="rouge-vif"><ellipse cx="110" cy="122" rx="56" ry="34" fill="#ff5c7a" class="voile"/><ellipse cx="73" cy="128" rx="17" ry="10" fill="#ff4d6d" class="joue-g"/><ellipse cx="147" cy="128" rx="17" ry="10" fill="#ff4d6d" class="joue-d"/></g>
   <g class="rougeur" stroke="#e8607c" stroke-width="1.8" stroke-linecap="round"><path d="M64 126 l-3 6 M70 126 l-3 6 M76 126 l-3 6 M144 126 l-3 6 M150 126 l-3 6 M156 126 l-3 6"/></g>
+  <g class="nez-halo">
+    <circle cx="110" cy="128" r="22" fill="#ff6b8b" opacity=".18"/><circle cx="110" cy="128" r="15" fill="#ff8aa3" opacity=".35"/>
+    <g stroke="#ffd166" stroke-width="2.4" stroke-linecap="round"><path d="M110 98 v-8 M84 106 l-6 -5 M136 106 l6 -5 M80 128 h-8 M140 128 h8"/></g>
+  </g>
   <g class="nez"><circle cx="110" cy="128" r="8" fill="url(#nez-${u})"/><circle cx="107" cy="125" r="2.4" fill="#fff" opacity=".8"/></g>
   <g class="bouche">
     <path d="M110 136 v3 M110 139 Q103 148 96 141 M110 139 Q117 148 124 141" stroke="#3a1a10" stroke-width="2.2" fill="none" stroke-linecap="round"/>
@@ -1032,12 +1177,29 @@ function chatSVG(classe, id){
     <path d="M97 139 Q110 139 123 139 Q121 154 110 154 Q99 154 97 139 Z" fill="#8a2440" stroke="#3a1a10" stroke-width="2" stroke-linejoin="round"/>
     <path d="M103 149 Q110 144 117 149 Q114 153 110 153 Q106 153 103 149 Z" fill="#ee6f8a"/>
   </g>
+  <g class="bouche-plate"><path d="M101 143 Q110 140 119 143" stroke="#3a1a10" stroke-width="2.4" fill="none" stroke-linecap="round"/></g>
   <g class="bouche-o"><ellipse cx="110" cy="144" rx="5" ry="6" fill="#8a2440" stroke="#3a1a10" stroke-width="2"/></g>
   <g stroke="#fff4e6" stroke-width="1.5" stroke-linecap="round"><path d="M82 136 L56 132 M82 142 L58 148"/><path d="M138 136 L164 132 M138 142 L162 148"/></g>
 
   <!-- écharpe -->
   <path d="M62 160 Q110 178 158 160 L156 172 Q110 190 64 172 Z" fill="#e3a1b0"/>
   <path d="M80 168 v12 M96 172 v12 M112 173 v12 M128 172 v12 M144 167 v12" stroke="#c97d8e" stroke-width="3"/>
+
+
+  <!-- poses (une par humeur) -->
+  <g class="pose pose-penseur"><path d="M150 196 Q166 176 134 160" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M150 196 Q166 176 134 160" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><g transform="rotate(-20 128 156)"><ellipse cx="128" cy="156" rx="13" ry="11" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M123 147 v5 M128 146 v6 M133 147 v5" stroke="#e2b98e" stroke-width="1.5" stroke-linecap="round"/></g></g>
+  <g class="pose pose-joues"><path d="M74 192 Q54 172 60 150" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M74 192 Q54 172 60 150" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><path d="M146 192 Q166 172 160 150" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M146 192 Q166 172 160 150" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><g transform="rotate(20 58 146)"><ellipse cx="58" cy="146" rx="13" ry="11" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M53 137 v5 M58 136 v6 M63 137 v5" stroke="#e2b98e" stroke-width="1.5" stroke-linecap="round"/></g><g transform="rotate(-20 162 146)"><ellipse cx="162" cy="146" rx="13" ry="11" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M157 137 v5 M162 136 v6 M167 137 v5" stroke="#e2b98e" stroke-width="1.5" stroke-linecap="round"/></g></g>
+  <g class="pose pose-hanches"><path d="M72 186 Q40 200 62 224" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M72 186 Q40 200 62 224" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><path d="M148 186 Q180 200 158 224" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M148 186 Q180 200 158 224" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><g transform="rotate(40 64 224)"><ellipse cx="64" cy="224" rx="13" ry="11" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M59 215 v5 M64 214 v6 M69 215 v5" stroke="#e2b98e" stroke-width="1.5" stroke-linecap="round"/></g><g transform="rotate(-40 156 224)"><ellipse cx="156" cy="224" rx="13" ry="11" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M151 215 v5 M156 214 v6 M161 215 v5" stroke="#e2b98e" stroke-width="1.5" stroke-linecap="round"/></g></g>
+  <g class="pose pose-coeur"><path d="M74 188 Q80 206 98 210" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M74 188 Q80 206 98 210" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><path d="M146 188 Q140 206 122 210" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M146 188 Q140 206 122 210" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/>
+    <path d="M110 224 C92 212 88 198 98 194 C104 192 108 196 110 200 C112 196 116 192 122 194 C132 198 128 212 110 224 Z" fill="#e8394f" stroke="#8a2440" stroke-width="2"/>
+    <ellipse cx="104" cy="200" rx="3.5" ry="2" fill="#fff" opacity=".6"/>
+    <g transform="rotate(30 94 208)"><ellipse cx="94" cy="208" rx="13" ry="11" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M89 199 v5 M94 198 v6 M99 199 v5" stroke="#e2b98e" stroke-width="1.5" stroke-linecap="round"/></g><g transform="rotate(-30 126 208)"><ellipse cx="126" cy="208" rx="13" ry="11" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M121 199 v5 M126 198 v6 M131 199 v5" stroke="#e2b98e" stroke-width="1.5" stroke-linecap="round"/></g></g>
+  <g class="pose pose-calin"><path d="M146 192 Q170 182 170 156" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M146 192 Q170 182 170 156" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><ellipse cx="170" cy="148" rx="15" ry="14" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M163 154 q7 6 14 0 q1 -6 -7 -6 q-8 0 -7 6z" fill="#f2aebd"/><ellipse cx="159" cy="142" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="166" cy="137.5" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="174" cy="137.5" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="181" cy="142" rx="3.2" ry="3.8" fill="#f2aebd"/></g>
+  <g class="pose pose-doigt"><path d="M146 192 Q168 172 166 134" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M146 192 Q168 172 166 134" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><ellipse cx="166" cy="124" rx="15" ry="14" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M159 132 q7 6 14 0 q1 -6 -7 -6 q-8 0 -7 6z" fill="#f2aebd"/><ellipse cx="155" cy="119" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="162" cy="114.5" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="170" cy="114.5" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="177" cy="119" rx="3.2" ry="3.8" fill="#f2aebd"/></g>
+  <g class="pose pose-haut">
+    <g class="bras-g"><path d="M74 190 Q52 168 46 134" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M74 190 Q52 168 46 134" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><ellipse cx="44" cy="124" rx="15" ry="14" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M37 130 q7 6 14 0 q1 -6 -7 -6 q-8 0 -7 6z" fill="#f2aebd"/><ellipse cx="33" cy="118" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="40" cy="113.5" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="48" cy="113.5" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="55" cy="118" rx="3.2" ry="3.8" fill="#f2aebd"/></g>
+    <g class="bras-d"><path d="M146 190 Q168 168 174 134" stroke="#d47a34" stroke-width="24" stroke-linecap="round" fill="none"/><path d="M146 190 Q168 168 174 134" stroke="url(#roux-${u})" stroke-width="20" stroke-linecap="round" fill="none"/><ellipse cx="176" cy="124" rx="15" ry="14" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1.4"/><path d="M169 130 q7 6 14 0 q1 -6 -7 -6 q-8 0 -7 6z" fill="#f2aebd"/><ellipse cx="165" cy="118" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="172" cy="113.5" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="180" cy="113.5" rx="3.2" ry="3.8" fill="#f2aebd"/><ellipse cx="187" cy="118" rx="3.2" ry="3.8" fill="#f2aebd"/></g>
+  </g>
 
   <!-- émotions -->
   <g class="e-etincelles" fill="#ffe08a">
@@ -1060,40 +1222,139 @@ function chatSVG(classe, id){
 document.getElementById("chatAccueil").innerHTML = chatSVG("bonhomme coucou", "a");
 
 /* ---------- Le chat sur la page du calendrier ---------- */
-document.getElementById("chatCal").innerHTML = chatSVG("chat-cal repos", "c");
+
+/* ---------- Caramel allongé (pose de repos sur le calendrier) ---------- */
+function chatAllongeSVG(u){
+  return `<svg class="chat-allonge" viewBox="0 0 280 170" aria-hidden="true">
+  <defs>
+    <radialGradient id="rouxA-${u}" cx="45%" cy="25%" r="85%"><stop offset="0" stop-color="#ffd8a8"/><stop offset=".6" stop-color="#f2a35a"/><stop offset="1" stop-color="#d47a34"/></radialGradient>
+    <linearGradient id="boisA-${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1d6"/><stop offset=".5" stop-color="#e2bd7c"/><stop offset="1" stop-color="#b9853e"/></linearGradient>
+    <radialGradient id="nezA-${u}" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#ee6f8a"/><stop offset="1" stop-color="#8a2440"/></radialGradient>
+  </defs>
+  <ellipse cx="150" cy="163" rx="112" ry="6" fill="rgba(20,2,8,.28)"/>
+  <!-- dos rond, roulé en boule -->
+  <g class="corps-a">
+    <path d="M70 158 C52 150 56 104 100 86 C140 70 214 74 238 108 C256 134 244 160 214 160 Z" fill="url(#rouxA-${u})"/>
+    <path d="M150 80 q8 12 2 24 M178 82 q8 12 2 24 M204 90 q7 11 0 22 M226 104 q4 10 -3 18" stroke="#c9692a" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M196 156 q16 -4 30 -14" stroke="#e7a466" stroke-width="3" fill="none" stroke-linecap="round" opacity=".7"/>
+  </g>
+  <!-- oreilles + bois -->
+  <path d="M46 92 L36 58 L70 74 Z" fill="url(#rouxA-${u})"/><path d="M50 85 L44 65 L63 75 Z" fill="#f6c6d1"/>
+  <path d="M118 80 L128 46 L96 64 Z" fill="url(#rouxA-${u})"/><path d="M114 74 L122 54 L102 66 Z" fill="#f6c6d1"/>
+  <g stroke="url(#boisA-${u})" stroke-width="5.2" stroke-linecap="round" fill="none">
+    <path d="M56 68 C50 52 50 40 44 28 M52 52 L36 46 M50 38 L58 26"/>
+    <path d="M108 60 C116 46 116 34 124 22 M112 44 L128 38 M116 32 L108 20"/>
+  </g>
+  <path d="M48 74 Q82 52 116 66" stroke="#8a2440" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- tête posée, un peu penchée -->
+  <g transform="rotate(-8 82 118)">
+    <ellipse cx="82" cy="118" rx="50" ry="40" fill="url(#rouxA-${u})"/>
+    <path d="M82 80 v11 M71 82 l3 9 M93 82 l-3 9" stroke="#c9692a" stroke-width="3.8" stroke-linecap="round"/>
+    <ellipse cx="82" cy="138" rx="24" ry="14" fill="#fff4e6"/>
+    <path d="M54 118 Q62 126 70 118 M94 118 Q102 126 110 118" stroke="#3a1a10" stroke-width="3.1" fill="none" stroke-linecap="round"/>
+    <ellipse cx="50" cy="134" rx="9" ry="5" fill="#f4a0b0" opacity=".75"/><ellipse cx="114" cy="134" rx="9" ry="5" fill="#f4a0b0" opacity=".75"/>
+    <g class="nez"><circle cx="82" cy="132" r="6.5" fill="url(#nezA-${u})"/><circle cx="79.6" cy="129.6" r="1.9" fill="#fff" opacity=".8"/></g>
+    <path d="M82 138 v2 M82 140 Q77 145 72 141 M82 140 Q87 145 92 141" stroke="#3a1a10" stroke-width="1.9" fill="none" stroke-linecap="round"/>
+  </g>
+  <!-- écharpe -->
+  <path d="M112 128 Q130 150 150 150 L150 160 Q126 160 108 140 Z" fill="#e3a1b0"/>
+  <!-- la queue s'enroule devant, jusque sous le museau -->
+  <g class="queue-a">
+    <path d="M232 140 C226 166 150 170 100 164 C74 160 58 156 52 146" stroke="#d47a34" stroke-width="20" stroke-linecap="round" fill="none"/>
+    <path d="M232 140 C226 166 150 170 100 164 C74 160 58 156 52 146" stroke="url(#rouxA-${u})" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <path d="M196 158 v10 M170 162 v10 M144 163 v10 M118 162 v10 M92 160 v9" stroke="#c9692a" stroke-width="3.6" stroke-linecap="round"/>
+  </g>
+  <!-- zzz -->
+  <g class="zzz" fill="#f8e3bd" font-family="Georgia, serif" font-weight="700">
+    <text class="z1" x="132" y="62" font-size="16">z</text>
+    <text class="z2" x="146" y="46" font-size="20">z</text>
+    <text class="z3" x="162" y="28" font-size="24">Z</text>
+  </g>
+</svg>`;
+}
+
+/* ---------- Caramel qui marche (quand il tourne en rond pour trouver sa place) ---------- */
+function chatMarcheSVG(u){
+  const patte = (x, cls) => `<g class="patte ${cls}"><path d="M${x} 96 L${x} 124" stroke="#d47a34" stroke-width="15" stroke-linecap="round"/><path d="M${x} 96 L${x} 124" stroke="url(#rouxM-${u})" stroke-width="11.5" stroke-linecap="round"/><ellipse cx="${x+2}" cy="127" rx="8.5" ry="5" fill="#fff4e6" stroke="#ecd2b4" stroke-width="1"/></g>`;
+  return `<svg class="chat-marche" viewBox="0 0 210 140" aria-hidden="true">
+  <defs>
+    <radialGradient id="rouxM-${u}" cx="45%" cy="30%" r="80%"><stop offset="0" stop-color="#ffd8a8"/><stop offset=".6" stop-color="#f2a35a"/><stop offset="1" stop-color="#d47a34"/></radialGradient>
+    <linearGradient id="boisM-${u}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1d6"/><stop offset="1" stop-color="#c99a5a"/></linearGradient>
+    <radialGradient id="nezM-${u}" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#ee6f8a"/><stop offset="1" stop-color="#8a2440"/></radialGradient>
+  </defs>
+  <ellipse cx="100" cy="133" rx="70" ry="5" fill="rgba(20,2,8,.25)"/>
+  <g class="trajet"><g class="sens">
+    <!-- queue levée -->
+    <g class="queue-m"><path d="M48 80 C30 70 26 44 38 26" stroke="#d47a34" stroke-width="14" stroke-linecap="round" fill="none"/><path d="M48 80 C30 70 26 44 38 26" stroke="url(#rouxM-${u})" stroke-width="10.5" stroke-linecap="round" fill="none"/><path d="M33 60 l8 -2 M31 44 l8 1" stroke="#c9692a" stroke-width="3" stroke-linecap="round"/></g>
+    <!-- pattes du fond -->
+    ${patte(66, "p2")}${patte(132, "p4")}
+    <!-- corps -->
+    <ellipse cx="98" cy="84" rx="54" ry="25" fill="url(#rouxM-${u})"/>
+    <path d="M78 62 q5 9 0 18 M96 60 q5 9 0 18 M114 62 q5 9 0 18" stroke="#c9692a" stroke-width="3.4" fill="none" stroke-linecap="round"/>
+    <ellipse cx="104" cy="98" rx="30" ry="9" fill="#fff4e6" opacity=".8"/>
+    <!-- pattes de devant -->
+    ${patte(56, "p1")}${patte(122, "p3")}
+    <!-- tête -->
+    <path d="M140 46 L134 22 L156 36 Z M172 44 L180 20 L160 34 Z" fill="url(#rouxM-${u})"/>
+    <path d="M142 41 L139 28 L151 36 Z M170 40 L175 27 L163 35 Z" fill="#f6c6d1"/>
+    <g stroke="url(#boisM-${u})" stroke-width="4" stroke-linecap="round" fill="none"><path d="M148 34 C144 24 145 16 140 8 M146 24 L135 20"/><path d="M168 32 C172 22 172 14 177 6 M170 22 L181 18"/></g>
+    <path d="M140 38 Q158 26 176 36" stroke="#8a2440" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <circle cx="158" cy="58" r="25" fill="url(#rouxM-${u})"/>
+    <path d="M158 34 v7 M151 35 l2 6 M165 35 l-2 6" stroke="#c9692a" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="170" cy="68" rx="14" ry="10" fill="#fff4e6"/>
+    <path d="M150 56 Q156 50 162 56 M168 54 Q173 49 178 54" stroke="#3a1a10" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <ellipse cx="148" cy="66" rx="6" ry="3.6" fill="#f4a0b0" opacity=".8"/>
+    <circle cx="178" cy="64" r="5" fill="url(#nezM-${u})"/>
+    <path d="M176 70 Q172 74 167 71" stroke="#3a1a10" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M166 66 L190 62 M166 70 L190 72" stroke="#fff4e6" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- écharpe -->
+    <path d="M136 72 Q148 86 164 82 L162 90 Q146 94 132 80 Z" fill="#e3a1b0"/>
+  </g></g>
+</svg>`;
+}
+
+document.getElementById("chatCal").innerHTML = chatSVG("chat-cal repos", "c") + chatAllongeSVG("l") + chatMarcheSVG("m");
 const chatPerche = document.getElementById("chatPerche");
 const chatCal = chatPerche.querySelector(".chat-cal");
+chatPerche.classList.add("dort");
 const bulleChat = document.getElementById("bulleChat");
-let minuteurChat, indexPhrase = -1, apresGrattage = false;
+let minuteurChat, minuteurTourne, indexPhrase = -1, apresGrattage = false;
 
 function auHasard(liste){ return liste[Math.floor(Math.random() * liste.length)]; }
-function parler(texte, duree = 4000, h = "joie"){
+function parler(texte, duree = 4000, h = "content"){
+  if (texte && typeof texte === "object"){ h = texte.humeur || h; texte = texte.texte; }
   bulleChat.textContent = insecable(texte);
   babiller(texte);
   humeur(chatCal, h);
   bulleChat.classList.add("visible");
-  chatCal.classList.remove("repos"); chatCal.classList.add("coucou");
+  chatPerche.classList.remove("dort");                 // il se réveille et s'assoit pour parler
   chatPerche.classList.remove("saute"); void chatPerche.offsetWidth; chatPerche.classList.add("saute");
   clearTimeout(minuteurChat);
+  clearTimeout(minuteurTourne); chatPerche.classList.remove("tourne");
   minuteurChat = setTimeout(() => {
     bulleChat.classList.remove("visible");
-    chatCal.classList.remove("coucou"); chatCal.classList.add("repos");
     humeur(chatCal, null);
+    chatPerche.classList.add("tourne");                // il tourne en rond pour trouver sa place…
+    minuteurTourne = setTimeout(() => {
+      chatPerche.classList.add("dort");                // …puis se couche en croissant
+      chatPerche.classList.remove("tourne");
+    }, 2750);
   }, duree);
 }
 function phraseDuJour(){
-  if (apercu) return "Coucou ! Tout est ouvert aujourd'hui ♡";
+  if (apercu) return { texte: "Coucou ! Tout est ouvert aujourd'hui ♡", humeur: "joie" };
   if (!dejaArrive(1)){
     const n = joursRestants(1);
-    return n <= 1 ? "Plus qu'un dodo avant la première case !" : `Encore ${n} dodos avant la première case !`;
+    return n <= 1 ? { texte: "Plus qu'un dodo avant la première case !", humeur: "excitation" }
+                  : { texte: `Encore ${n} dodos avant la première case !`, humeur: "clin" };
   }
-  if (!estDecembre) return "Joyeux Noël ! ♡";
+  if (!estDecembre) return { texte: "Joyeux Noël ! ♡", humeur: "joie" };
   const j = jourActuel;
   const toutes = ORDRE.every(k => ouvertes.has(k));
-  if (j >= 24 && toutes) return "Ta surprise spéciale t'attend en bas ♡";
-  if (j <= 24 && !ouvertes.has(j)) return "Psst… la case du jour t'attend ! ♡";
-  if (j >= 24) return "Gratte toutes les cases pour ta surprise ♡";
-  return "Reviens demain pour la suite ♡";
+  if (j >= 24 && toutes) return { texte: "Ta surprise spéciale t'attend en bas ♡", humeur: "excitation" };
+  if (j <= 24 && !ouvertes.has(j)) return { texte: "Psst… la case du jour t'attend ! ♡", humeur: "malice" };
+  if (j >= 24) return { texte: "Gratte toutes les cases pour ta surprise ♡", humeur: "clin" };
+  return { texte: "Reviens demain pour la suite ♡", humeur: "baille" };
 }
 function toucherChat(){
   indexPhrase++;
@@ -1109,7 +1370,11 @@ function clic(c, j, ok){
     c.classList.remove("secoue"); void c.offsetWidth; c.classList.add("secoue");
     const n = joursRestants(j);
     const quand = n === 1 ? "demain" : `dans ${n} jours`;
-    parler(auHasard(["Hé ! Pas de triche ♡", "Patience, patience…", "Miaou ! Pas encore !"]), 3200, "surprise");
+    parler(auHasard([
+      { texte: "Hé ! Pas de triche ♡", humeur: "gronde" },
+      { texte: "Patience, patience…", humeur: "patience" },
+      { texte: "Miaou ! Pas encore !", humeur: "mefiant" }
+    ]), 3200);
     montrerToast("Pas encore ! 🎁", `Cette case s'ouvrira le ${j} décembre, ${quand}. Un peu de patience ♡`);
     return;
   }
@@ -1195,7 +1460,12 @@ function fermerPhoto(){
   if (apresGrattage){
     apresGrattage = false;
     if (ORDRE.every(k => ouvertes.has(k))) setTimeout(lancerFete, 500);   // la 24e case vient d'être grattée !
-    else setTimeout(() => parler(auHasard(["Ooooh ♡", "Trop belle celle-là…", "Miaou ♡ J'adore !"]), 4000, "amour"), 400);
+    else setTimeout(() => parler(auHasard([
+      { texte: "Ooooh ♡", humeur: "amour" },
+      { texte: "Trop belle celle-là…", humeur: "embarras" },
+      { texte: "Miaou ♡ J'adore !", humeur: "excitation" },
+      { texte: "Elle est jolie, hein ?", humeur: "malice" }
+    ])), 400);
   }
 }
 
