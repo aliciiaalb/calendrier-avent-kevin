@@ -284,7 +284,8 @@
   .suite-indice.visible{opacity:.9;transform:none;pointer-events:auto;animation:clignote 1.8s ease-in-out infinite}
   .suite-indice span{display:inline-block;font-size:1.1rem;animation:pousse 1.2s ease-in-out infinite}
   @keyframes pousse{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
-  .chat-accueil{cursor:pointer;order:2}
+  .chat-accueil{order:2}
+  .lettre-fond:has(.bonhomme-scene.visible){cursor:pointer}
   .bonhomme-scene .bulle{order:1}
   .bonhomme-scene .bouton-deco{order:4}
   .bulle .curseur{display:inline-block;width:2px;height:1em;background:#8a2440;margin-left:3px;vertical-align:-2px;animation:clignote 1s steps(1) infinite}
@@ -693,6 +694,16 @@
   .agrandir-case:hover{transform:scale(1.12);background:rgba(138,36,64,.85)}
   .agrandir-case svg{width:13px;height:13px}
 
+
+  .apropos-bulle{position:absolute;right:0;bottom:calc(100% + 12px);width:min(78vw,290px);padding:14px 16px;border-radius:16px;
+    background:linear-gradient(170deg,#fffaf5,#fbe4e9);color:#4a1222;box-shadow:0 14px 34px rgba(0,0,0,.4), inset 0 0 0 1px rgba(226,189,124,.8);
+    opacity:0;transform:translateY(8px) scale(.96);transform-origin:right bottom;pointer-events:none;transition:opacity .25s, transform .3s cubic-bezier(.3,1.3,.5,1)}
+  .apropos-bulle.visible{opacity:1;transform:none;pointer-events:auto}
+  .apropos-bulle b{display:block;font-family:"Pinyon Script",cursive;font-weight:400;font-size:1.6rem;color:#8a2440;line-height:1.1;margin-bottom:4px}
+  .apropos-bulle p{font-family:"DM Sans",sans-serif;font-size:.85rem;line-height:1.45}
+  .apropos-bulle code{background:rgba(138,36,64,.1);color:#8a2440;padding:1px 6px;border-radius:6px;font-size:.82rem;white-space:nowrap}
+  .controles{position:fixed}
+
   /* ---------- Boîte d'où Caramel veut sortir ---------- */
   .boite{width:clamp(130px,36vw,170px);height:auto;overflow:visible;filter:drop-shadow(0 14px 26px rgba(0,0,0,.45));transform-origin:50% 100%;animation:agite 3.4s ease-in-out infinite}
   @keyframes agite{
@@ -847,7 +858,7 @@
       <div class="env-rabat"></div>
       <div class="sceau"><svg viewBox="0 0 24 24" fill="#f1c6cf"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.2 0 3.6 1.3 5.4 3.3 1.8-2 3.2-3.3 5.4-3.3 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></div>
     </div>
-    <div class="indice">Touche le sceau ♡</div>
+    <div class="indice">Touche l'enveloppe pour l'ouvrir  ♡</div>
   </div>
   <div class="papier" id="papier" role="dialog" aria-modal="true">
     <button class="fermer-lettre" id="fermerLettre" aria-label="Fermer">×</button>
@@ -866,6 +877,13 @@
 
 <audio id="audio" src="musique.mp3" loop preload="metadata"></audio>
 <div class="controles">
+<div class="apropos-bulle" id="aproposBulle" role="dialog" aria-label="À propos">
+  <b>À propos ♡</b>
+  <p>Pour remettre tout le calendrier à zéro (cases, accueil, surprise), ajoute <code>#reinitialiser</code> à la fin de l'adresse du site, puis appuie sur Entrée.</p>
+</div>
+<button class="voix-btn apropos-btn" id="aproposBtn" aria-label="À propos" title="À propos">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6" fill="currentColor"/></svg>
+</button>
 <button class="voix-btn" id="voixBtn" aria-label="Voix de Caramel">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
     <path d="M4 5h16v11H11l-5 4v-4H4z" fill="currentColor" fill-opacity=".15"/>
@@ -943,12 +961,12 @@ const SYNCHRO = {
 
 const CHAT_PHRASES = [
   { texte: "Ronron… ♡",                                    humeur: "calin" },
-  { texte: "Je surveille le calendrier : pas de triche !",  humeur: "mefiant" },
-  { texte: "Tu sais qu'elle t'aime très très très fort ?",  humeur: "amour" },
+  { texte: "Je surveille le calendrier; pas de triche !",  humeur: "mefiant" },
+  { texte: "Tu sais qu'elle t'aime très très très fort ?",            humeur: "amour" },
   { texte: "Miaou !",                                       humeur: "calin" },
-  { texte: "Une caresse ? ♡",                               humeur: "embarras" },
+  { texte: "Une caresse ? ^^",                               humeur: "embarras" },
   { texte: "Mon nez brille pour te guider jusqu'à Noël !",  humeur: "nez" },
-  { texte: "Psst… tu veux un indice pour demain ? Non !",   humeur: "malice" },
+  { texte: "Psst… tu veux un indice pour demain, non ?",   humeur: "malice" },
   { texte: "*baille* … pardon, je faisais une sieste",      humeur: "baille" }
 ];
 /* humeurs possibles : joie, content, clin (clin d'œil), calin (patte tendue), embarras, fierte,
@@ -1883,6 +1901,9 @@ voixBtn.addEventListener("click", () => {
   if (!voixCoupee) setTimeout(() => babiller("miaou"), 60);
 });
 majVoixBtn();
+const aproposBtn = document.getElementById("aproposBtn"), aproposBulle = document.getElementById("aproposBulle");
+aproposBtn.addEventListener("click", e => { e.stopPropagation(); aproposBulle.classList.toggle("visible"); });
+document.addEventListener("click", e => { if (!e.target.closest("#aproposBulle, #aproposBtn")) aproposBulle.classList.remove("visible"); });
 function bip(ch, t0){
   if (voixCoupee || !ctxAudio || ctxAudio.state !== "running") return;
   const c = (ch || "").toLowerCase();
@@ -2001,9 +2022,12 @@ function toucherBulle(){                         // toucher = finir la phrase, p
   if (enEcriture) finBulle();
   else if (indexBulle < BONHOMME.bulles.length - 1) bulleSuivante();
 }
-bulle.addEventListener("click", toucherBulle);
-suiteIndice.addEventListener("click", toucherBulle);
-document.getElementById("chatAccueil").addEventListener("click", toucherBulle);
+// pendant que Caramel parle, toucher n'importe où fait avancer (sauf les boutons)
+document.getElementById("lettreFond").addEventListener("click", e => {
+  if (!bonhommeScene.classList.contains("visible") || bonhommeScene.classList.contains("part")) return;
+  if (e.target.closest("button") && e.target.closest("button") !== suiteIndice) return;
+  toucherBulle();
+});
 const demarrage = document.getElementById("demarrage");
 function montrerBonhomme(avecDepart){
   if (avecDepart){                                  // petit écran « Ouvrir ✨ » : le toucher débloque le son
@@ -2096,7 +2120,11 @@ function fermerLettre(){
   if (lettreCourante === LETTRE_ACCUEIL && !apercu && !simulation){ try { localStorage.setItem("avent-lettre-lue", "1"); } catch(e){} envoyerSynchro(); }
 }
 document.getElementById("fermerLettre").addEventListener("click", fermerLettre);
-document.getElementById("revoir").addEventListener("click", () => { debloquerAudio(); scrollTo({ top: 0 }); montrerBonhomme(false); });
+document.getElementById("revoir").addEventListener("click", () => {
+  debloquerAudio(); scrollTo({ top: 0 });
+  document.getElementById("boite").classList.remove("ouverte");
+  montrerBonhomme(true);                              // on repart de la boîte qui s'agite
+});
 
 /* ---------- Synchronisation entre ses appareils ---------- */
 const synchroActive = !!(SYNCHRO.base && SYNCHRO.cle) && !apercu && !simulation && !testFete && !depart;
