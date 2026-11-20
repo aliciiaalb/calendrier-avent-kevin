@@ -274,6 +274,11 @@
   }
   .bulle::after{content:"";position:absolute;bottom:-11px;left:50%;width:22px;height:22px;transform:translateX(-50%) rotate(45deg);
     background:#fbe4e9;box-shadow:inset -1px -1px 0 rgba(226,189,124,.8);border-radius:0 0 4px 0}
+  .demarrage{display:none;flex-direction:column;align-items:center;text-align:center;gap:8px}
+  .demarrage.visible{display:flex;animation:apparait .6s ease both}
+  .demarrage-cadeau{width:clamp(96px,26vw,120px);height:auto;filter:drop-shadow(0 12px 24px rgba(0,0,0,.4));animation:cadeauBouge 2.6s ease-in-out infinite}
+  @keyframes cadeauBouge{0%,100%{transform:rotate(0) translateY(0)}20%{transform:rotate(-6deg) translateY(-4px)}40%{transform:rotate(5deg) translateY(-6px)}60%{transform:rotate(0) translateY(0)}}
+  .demarrage-texte{font-family:"Pinyon Script",cursive;font-size:clamp(2rem,8vw,2.6rem);color:var(--rose);margin:10px 0 0}
   .suite-indice{order:3;margin-top:2px;background:none;border:none;cursor:pointer;color:var(--rose);font-family:"DM Sans",sans-serif;font-size:.85rem;
     opacity:0;transform:translateY(-4px);transition:opacity .4s, transform .4s;pointer-events:none;padding:6px 12px}
   .suite-indice.visible{opacity:.9;transform:none;pointer-events:auto;animation:clignote 1.8s ease-in-out infinite}
@@ -563,6 +568,18 @@
 
 <!-- Lettres -->
 <div class="lettre-fond" id="lettreFond" aria-hidden="true">
+  <div class="demarrage" id="demarrage">
+    <svg class="demarrage-cadeau" viewBox="0 0 80 80" aria-hidden="true">
+      <defs><linearGradient id="dmOr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1d6"/><stop offset="1" stop-color="#c18f4c"/></linearGradient>
+      <linearGradient id="dmB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b8405c"/><stop offset="1" stop-color="#5e1426"/></linearGradient></defs>
+      <rect x="12" y="34" width="56" height="40" rx="4" fill="url(#dmB)"/>
+      <rect x="8" y="24" width="64" height="13" rx="3" fill="#a33a55"/>
+      <rect x="35" y="24" width="10" height="50" fill="url(#dmOr)"/>
+      <path d="M40 24 c-7-14-25-14-21-3 c2 5 12 5 21 3z M40 24 c7-14 25-14 21-3 c-2 5-12 5-21 3z" fill="url(#dmOr)"/>
+    </svg>
+    <p class="demarrage-texte">Une surprise t'attend…</p>
+    <button class="bouton" id="boutonDemarrer">Ouvrir ✨</button>
+  </div>
   <div class="bonhomme-scene" id="bonhommeScene">
     <div class="bulle" id="bulle" aria-live="polite"></div>
     <button class="suite-indice" id="suiteIndice" aria-label="Continuer">Touche pour continuer <span>›</span></button>
@@ -900,6 +917,7 @@ let minuteurChat, indexPhrase = -1, apresGrattage = false;
 function auHasard(liste){ return liste[Math.floor(Math.random() * liste.length)]; }
 function parler(texte, duree = 4000){
   bulleChat.textContent = insecable(texte);
+  babiller(texte);
   bulleChat.classList.add("visible");
   chatCal.classList.remove("repos"); chatCal.classList.add("coucou");
   chatPerche.classList.remove("saute"); void chatPerche.offsetWidth; chatPerche.classList.add("saute");
@@ -1355,6 +1373,44 @@ boutonLettre.addEventListener("click", () => { if (lettrePrete) enregistrer(lett
   maj();
 })();
 
+
+/* ---------- La petite voix de Caramel (bips générés, façon « babillage ») ---------- */
+let ctxAudio = null;
+function debloquerAudio(){
+  try {
+    ctxAudio = ctxAudio || new (window.AudioContext || window.webkitAudioContext)();
+    if (ctxAudio.state === "suspended") ctxAudio.resume();
+  } catch(e){ ctxAudio = null; }
+}
+const VOYELLES = "aàâäeéèêëiîïoôöuùûüy";
+function bip(ch, t0){
+  if (!ctxAudio || ctxAudio.state !== "running") return;
+  const c = (ch || "").toLowerCase();
+  if (!/[a-zàâäéèêëîïôöùûüç0-9]/.test(c)) return;
+  const t = t0 || ctxAudio.currentTime;
+  const idx = (c.normalize("NFD").charCodeAt(0) - 97 + 26) % 12;
+  const f = 520 * Math.pow(2, (idx - 5) / 15) * (0.96 + Math.random() * 0.08);
+  const voyelle = VOYELLES.includes(c);
+  const o = ctxAudio.createOscillator(), o2 = ctxAudio.createOscillator();
+  o.type = "triangle"; o2.type = "square";
+  o.frequency.setValueAtTime(f, t); o.frequency.exponentialRampToValueAtTime(f * 1.15, t + .055);
+  o2.frequency.setValueAtTime(f * 2, t);
+  const filtre = ctxAudio.createBiquadFilter();
+  filtre.type = "bandpass"; filtre.frequency.value = voyelle ? 1100 : 1900; filtre.Q.value = 1.1;
+  const g = ctxAudio.createGain(), g2 = ctxAudio.createGain();
+  g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(.16, t + .008); g.gain.exponentialRampToValueAtTime(.0008, t + .075);
+  g2.gain.value = .25;
+  o.connect(filtre); o2.connect(g2); g2.connect(filtre); filtre.connect(g); g.connect(ctxAudio.destination);
+  o.start(t); o2.start(t); o.stop(t + .09); o2.stop(t + .09);
+}
+function babiller(texte){                      // quelques bips rapides quand Caramel parle sur le calendrier
+  if (!ctxAudio || ctxAudio.state !== "running") return;
+  const lettres = [...texte].filter(ch => /[a-zàâäéèêëîïôöùûüç]/i.test(ch)).slice(0, 14);
+  const t = ctxAudio.currentTime + .02;
+  lettres.forEach((ch, i) => bip(ch, t + i * .07));
+}
+document.addEventListener("pointerdown", debloquerAudio, { once: true });   // le premier toucher débloque le son
+
 /* ---------- Musique ---------- */
 const audio = document.getElementById("audio");
 const boutonMusique = document.getElementById("musique");
@@ -1425,6 +1481,7 @@ function ecrireBulle(){
   minuteurBulle = setInterval(() => {
     ecrit++;
     afficherBulle(ecrit);
+    bip(BONHOMME.bulles[indexBulle][ecrit - 1]);
     if (ecrit >= BONHOMME.bulles[indexBulle].length) finBulle();
   }, 62);
 }
@@ -1438,7 +1495,17 @@ function toucherBulle(){                         // toucher = finir la phrase, p
 bulle.addEventListener("click", toucherBulle);
 suiteIndice.addEventListener("click", toucherBulle);
 document.getElementById("chatAccueil").addEventListener("click", toucherBulle);
-function montrerBonhomme(){
+const demarrage = document.getElementById("demarrage");
+function montrerBonhomme(avecDepart){
+  if (avecDepart){                                  // petit écran « Ouvrir ✨ » : le toucher débloque le son
+    scene.style.display = "none";
+    papier.classList.remove("visible","montre");
+    bonhommeScene.classList.remove("visible");
+    demarrage.classList.add("visible");
+    fond.classList.add("visible"); fond.setAttribute("aria-hidden","false");
+    return;
+  }
+  demarrage.classList.remove("visible");
   indexBulle = 0;
   boutonBonhomme.textContent = BONHOMME.bouton;
   boutonBonhomme.parentElement.classList.remove("visible");
@@ -1449,6 +1516,11 @@ function montrerBonhomme(){
   fond.classList.add("visible"); fond.setAttribute("aria-hidden","false");
   setTimeout(ecrireBulle, 500);
 }
+document.getElementById("boutonDemarrer").addEventListener("click", () => {
+  debloquerAudio();
+  demarrage.classList.remove("visible");
+  setTimeout(() => montrerBonhomme(false), 150);
+});
 boutonBonhomme.addEventListener("click", () => {
   jouerMusique();                                  // le clic permet de lancer la musique
   bonhommeScene.classList.add("part");
@@ -1461,6 +1533,7 @@ boutonBonhomme.addEventListener("click", () => {
 
 function montrerLettre(L, avecEnveloppe){
   lettreCourante = L;
+  demarrage.classList.remove("visible");
   if (L === LETTRE_FINALE){
     surpriseOuverte = true;
     document.getElementById("finale").classList.remove("attire");
@@ -1506,7 +1579,7 @@ function fermerLettre(){
   if (lettreCourante === LETTRE_ACCUEIL && !apercu && !simulation){ try { localStorage.setItem("avent-lettre-lue", "1"); } catch(e){} envoyerSynchro(); }
 }
 document.getElementById("fermerLettre").addEventListener("click", fermerLettre);
-document.getElementById("revoir").addEventListener("click", () => { scrollTo({ top: 0 }); montrerBonhomme(); });
+document.getElementById("revoir").addEventListener("click", () => { debloquerAudio(); scrollTo({ top: 0 }); montrerBonhomme(false); });
 
 /* ---------- Synchronisation entre ses appareils ---------- */
 const synchroActive = !!(SYNCHRO.base && SYNCHRO.cle) && !apercu && !simulation && !testFete && !depart;
@@ -1594,7 +1667,7 @@ document.addEventListener("visibilitychange", async () => {
   let lettreLue = false;
   try { lettreLue = localStorage.getItem("avent-lettre-lue") === "1"; } catch(e){}
   if (testFete) setTimeout(lancerFete, 600);
-  else if (!lettreLue || apercu || simulation) montrerBonhomme();
+  else if (!lettreLue || apercu || simulation) montrerBonhomme(true);
   else setTimeout(() => parler(phraseDuJour()), 1200);
 })();
 
